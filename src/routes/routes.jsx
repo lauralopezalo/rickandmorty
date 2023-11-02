@@ -7,9 +7,9 @@ import Home from '../pages/Home';
 import CharactersList from '../pages/CharactersList';
 import CharacterDetails from '../pages/CharacterDetails/CharacterDetails';
 import LocationsList from '../pages/LocationsList';
-import LocationDetails from '../pages/LocationDetails/LocationDetails';
+import LocationDetails from '../pages/LocationDetails';
 import EpisodesList from '../pages/EpisodesList';
-import EpisodeDetails from '../pages/EpisodeDetails/EpisodeDetails';
+import EpisodeDetails from '../pages/EpisodeDetails';
 import NotFound from '../pages/NotFound';
 
 

@@ -192,7 +192,7 @@ const CharactersList = () => {
                             <div key={id}>
                                 <Link
                                     to={`/character/${character.id}`}
-                                    state={{ url: character.url }}>
+                                    state={{ id: character.id }}>
                                     <div className="flex md:block"
                                     >
                                         <img

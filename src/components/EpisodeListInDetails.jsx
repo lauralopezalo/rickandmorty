@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+// This component displays a list of elements (not used for display characters) in Detail View Interfaces.
 
-const EpisodesWithCharacter = (props) => {
+
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import getListsInDetails from "../services/getListsInDetails";
+
+
+const EpisodeListInDetails = (props) => {
+   
     const [episodes, setEpisodes] = useState([]);
 
-    useEffect(() => {
-        async function fetchEpisodes() {
-            const promises = props.episodes.map(async (url) => {
-                try {
-                    const response = await axios.get(url);
-                    return response.data;
-                } catch (error) {
-                    console.log(error);
-                    return;
-                }
-            });
-            const episodes = await Promise.all(promises);
-            setEpisodes(episodes);
-        }
 
-        fetchEpisodes();
+    useEffect(() => {
+        getListsInDetails(props.episodes)
+            .then((response) => { setEpisodes(response) })
+            .catch((error) => { console.log(error) });
     }, [props.episodes]);
+
+
 
     return (
         <div className="bg-blue-300 mx-auto max-w-screen-xl">
@@ -45,4 +41,4 @@ const EpisodesWithCharacter = (props) => {
     );
 }
 
-export default EpisodesWithCharacter;
+export default EpisodeListInDetails;

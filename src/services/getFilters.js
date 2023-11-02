@@ -1,13 +1,18 @@
-// This function retrieves the different characteristics of a specified category 
-// that can be used for filtering results and populating filter drop-down menus.
-// Parameters:
-//   - category: The type of data to retrieve (e.g., 'location', 'character', 'episode').
-//   - characteristics: An array of characteristics to filter (e.g., ['dimension', 'type']).
-
-
 import axios from 'axios';
 
-
+/**
+ * This function retrieves the different characteristics of a specified category 
+ * that can be used for filtering results and populating filter drop-down menus.
+ *
+ * @param {string} category - The type of data to retrieve (e.g., 'location', 'character', 'episode').
+ * @param {Array} characteristics - An array of characteristics to filter (e.g., ['dimension', 'type']).
+ * @returns {Promise} A Promise that resolves to an array containing filter characteristics.
+ *                   The keys represent the characteristics to filter, and the values are arrays 
+ *                   of unique values for each characteristic, sorted in ascending order.
+ *                    (e.g. gender: ['Female', 'Genderless', 'Male', 'unknown'])
+ *
+ * @throws {Error} Throws an error if there is an issue fetching the filters.
+ */
 
 const getFilters = async (category, characteristics) => {
 

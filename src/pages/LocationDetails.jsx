@@ -1,20 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import ResidentsInLocation from "./components/ResidentsInLocation";
-import getDetails from "../../services/getDetails";
-import Spinner from "../../components/Spinner";
+
+import getData from "../services/getData";
+
+import CharactersListInDetails from "../components/CharactersListInDetails";
+import Spinner from "../components/Spinner";
+
+
 
 const LocationDetails = () => {
 
     const [location, setLocation] = useState(null);
     const { state } = useLocation();
 
+
     useEffect(() => {
-        getDetails(state.url)
+        getData({category: "locations", id: state.id})
             .then((response) => { setLocation(response.data) })
             .catch((error) => { console.log(error) });
+            console.log(state.id)
+            console.log(location)
+    }, [state.id]);
 
-    }, [state]);
 
     if (!location) {
         return (<Spinner />);
@@ -33,7 +40,7 @@ const LocationDetails = () => {
                     </div>
                 </div>
             </div>
-            {location.residents !== 0 && <ResidentsInLocation residents={location.residents} />}
+            {location.residents !== 0 && <CharactersListInDetails urlsOfCharacters={location.residents} />}
         </div>
     );
 }

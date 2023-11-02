@@ -158,7 +158,7 @@ const LocationsList = () => {
                         <div key={id}>
                             <Link
                                 to={`/location/${location.id}`}
-                                state={{ url: location.url }}>
+                                state={{ id: location.id }}>
                                 <div className="border">
                                     <div className="p-8" >
                                         <h2>{location.name}</h2>

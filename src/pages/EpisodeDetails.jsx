@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import CharactersInEpisode from "./components/CharactersInEpisode";
-import getDetails from "../../services/getDetails";
-import Spinner from "../../components/Spinner";
+import CharactersListInDetails from "../components/CharactersListInDetails";
+import Spinner from "../components/Spinner";
+import getDetails from "../services/getDetails";
 
 const EpisodeDetails = () => {
 
@@ -31,7 +31,7 @@ const EpisodeDetails = () => {
                     </div>
                 </div>
             </div>
-            {episode.residents !== 0 && <CharactersInEpisode characters={episode.characters} />}
+            {episode.residents !== 0 && <CharactersListInDetails urlsOfCharacters={episode.characters} />}
         </div>
     );
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import EpisodesWithCharacter  from "./components/EpisodesWithCharacter";
-import getDetails from "../../services/getDetails";
+import EpisodeListInDetails  from "../../components/EpisodeListInDetails";
 import Spinner from "../../components/Spinner";
+import getData from "../../services/getData";
 
 const CharacterDetails = () => {
 
@@ -10,10 +10,12 @@ const CharacterDetails = () => {
     const { state } = useLocation();
 
     useEffect(() => {
-        getDetails(state.url)
+        getData({category: "characters", id: state.id})
             .then((response) => { setCharacter(response.data) })
             .catch((error) => { console.log(error) });
-    }, [state.url]);
+            console.log(state.id)
+            console.log(character)
+    }, [state.id]);
 
 
     if (!character) {
@@ -50,7 +52,7 @@ const CharacterDetails = () => {
 
                 </div>
             </div>
-            {character.episode !== 0 && <EpisodesWithCharacter  episodes={character.episode} />}
+            {character.episode !== 0 && <EpisodeListInDetails episodes={character.episode} />}
         </div>
     );
 }

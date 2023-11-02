@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+// This component displays a list of characters in Detail View Interfaces (Episode Details and Location Details)
 
-const CharactersInEpisode = (props) => {
+
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import getListsInDetails from "../services/getListsInDetails";
+
+
+
+const CharactersListInDetails = (props) => {
+
     const [characters, setCharacters] = useState([]);
 
-    useEffect(() => {
-        async function fetchCharactersInEpisode() {
-            const promises = props.characters.map(async (url) => {
-                try {
-                    const response = await axios.get(url);
-                    return response.data;
-                } catch (error) {
-                    console.log(error);
-                    return;
-                }
-            });
-            const character = await Promise.all(promises);
-            setCharacters(character);
-        }
-
-        fetchCharactersInEpisode();
-    }, [props.characters]);
+      useEffect(() => {
+        getListsInDetails(props.urlsOfCharacters)
+            .then((response) => { setCharacters(response) })
+            .catch((error) => { console.log(error) });
+    }, [props.urlsOfCharacters]);
 
 
 
@@ -34,7 +28,7 @@ const CharactersInEpisode = (props) => {
                     <div key={id} className="border">
                         <Link
                             to={`/character/${character.id}`}
-                            state={{ url: character.url }}>
+                            state={{ id: character.id }}>
                             <img
                                 alt={`${character.name}`}
                                 src={character.image}
@@ -51,4 +45,4 @@ const CharactersInEpisode = (props) => {
     );
 }
 
-export default CharactersInEpisode;
+export default CharactersListInDetails;
