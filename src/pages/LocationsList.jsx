@@ -10,6 +10,7 @@ import getFilters from "../services/GetFilters";
 import getData from "../services/getData";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
+import useFilterStorage from "../hooks/useFilterStorage";
 
 
 
@@ -23,9 +24,9 @@ const LocationsList = () => {
     const [pagesToRead, setPagesToRead] = useState(1);
 
     const [hasNewSearchOrFilter, setHasNewSearchOrFilter] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedDimension, setSelectedDimension] = useState('');
-    const [selectedType, setSelectedType] = useState('');
+    const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
+    const [selectedDimension, setSelectedDimension] = useState(localStorage.getItem('selectedDimension') || '');
+    const [selectedType, setSelectedType] = useState(localStorage.getItem('selectedType') || '');
 
     const [hasError, setHasError] = useState(false);
 
@@ -97,6 +98,14 @@ const LocationsList = () => {
             });
 
     }, []);
+
+
+
+    // Save selected filters to local storage
+    useFilterStorage('searchTerm', searchTerm)
+    useFilterStorage('selectedDimension', selectedDimension)
+    useFilterStorage('selectedType', selectedType)
+
 
 
 

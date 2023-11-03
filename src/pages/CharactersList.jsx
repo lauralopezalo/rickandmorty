@@ -5,11 +5,13 @@ import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import getFilters from "../services/GetFilters";
 import getData from "../services/getData";
+import CharacterCard from "../components/CharacterCard";
+import useFilterStorage from "../hooks/useFilterStorage";
 
 
 
 const CharactersList = () => {
-    
+
     const [characters, setCharacters] = useState([]);
 
     const [statusArray, setStatusArray] = useState([])
@@ -21,11 +23,11 @@ const CharactersList = () => {
     const [pagesToRead, setPagesToRead] = useState(1);
 
     const [hasNewSearchOrFilter, setHasNewSearchOrFilter] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedStatus, setSelectedStatus] = useState('');
-    const [selectedSpecies, setSelectedSpecies] = useState('');
-    const [selectedType, setSelectedType] = useState('');
-    const [selectedGender, setSelectedGender] = useState('');
+    const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
+    const [selectedStatus, setSelectedStatus] = useState(localStorage.getItem('selectedStatus') || '');
+    const [selectedSpecies, setSelectedSpecies] = useState(localStorage.getItem('selectedSpecies') || '');
+    const [selectedType, setSelectedType] = useState(localStorage.getItem('selectedType') || '');
+    const [selectedGender, setSelectedGender] = useState(localStorage.getItem('selectedGender') || '');
 
     const [hasError, setHasError] = useState(false);
 
@@ -103,6 +105,15 @@ const CharactersList = () => {
             });
 
     }, []);
+
+
+
+    // Save selected filters to local storage
+    useFilterStorage('selectedStatus', selectedStatus)
+    useFilterStorage('selectedSpecies', selectedSpecies)
+    useFilterStorage('selectedType', selectedType)
+    useFilterStorage('selectedGender', selectedGender)
+    useFilterStorage('searchTerm', searchTerm)
 
 
 
@@ -186,35 +197,29 @@ const CharactersList = () => {
             </div>
 
             {!hasError ?
-                <div className="mx-auto max-w-screen-xl">
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-                        {characters.map((character, id) => (
-                            <div key={id}>
-                                <Link
-                                    to={`/character/${character.id}`}
-                                    state={{ id: character.id }}>
-                                    <div className="flex md:block"
-                                    >
-                                        <img
-                                            alt={`${character.name}`}
-                                            src={character.image}
-                                            className="h-36 w-36 md:w-full md:h-64 object-cover"
-                                        />
-                                        <div>
-                                            <h2>{character.name}</h2>
-                                            <p>
-                                                Status: {character.status}
-                                            </p>
-                                            <p>
-                                                Location: {character.location.name}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        ))}
+
+                <section className="text-gray-600 body-font">
+                    <div className="container px-5 py-24 mx-auto">
+                        <div className="flex flex-wrap -m-4">
+
+
+                            {characters.map((character) => (
+                                <CharacterCard
+                                    key={character.id}
+                                    id={character.id}
+                                    name={character.name}
+                                    image={character.image}
+                                    status={character.status}
+                                    location={character.location.name}
+                                    gender={character.gender}
+                                />
+                            ))}
+
+                        </div>
                     </div>
-                </div>
+                </section>
+
+
                 : <div>No se han encontrado datos</div>
             }
         </div >

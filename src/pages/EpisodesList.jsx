@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import getData from "../services/getData";
+import useFilterStorage from "../hooks/useFilterStorage";
 
 
 
@@ -18,8 +19,8 @@ const EpisodesList = () => {
     const [pagesToRead, setPagesToRead] = useState(1);
 
     const [hasNewSearchOrFilter, setHasNewSearchOrFilter] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedSeason, setSelectedSeason] = useState('');
+    const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
+    const [selectedSeason, setSelectedSeason] = useState(localStorage.getItem('selectedSeason') || '');
 
     const [hasError, setHasError] = useState(false);
 
@@ -73,6 +74,12 @@ const EpisodesList = () => {
         }
 
     }, [currentPage, searchTerm, selectedSeason]);
+
+
+
+    // Save selected filters to local storage
+    useFilterStorage('searchTerm', searchTerm)
+    useFilterStorage('selectedSeason', selectedSeason)
 
 
 
