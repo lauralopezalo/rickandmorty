@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import getFilters from "../services/GetFilters";
 import getData from "../services/getData";
-import CharacterCard from "../components/CharacterCard";
 import useFilterStorage from "../hooks/useFilterStorage";
+import ProfileCard from "../components/ProfileCard/ProfileCard"
 
 
 
@@ -197,28 +196,23 @@ const CharactersList = () => {
             </div>
 
             {!hasError ?
+                <div className="container mx-auto">
+                    <div className="flex flex-wrap justify-center gap-4 ">
 
-                <section className="text-gray-600 body-font">
-                    <div className="container px-5 py-24 mx-auto">
-                        <div className="flex flex-wrap -m-4">
+                        {characters.map((character) => (
+                            <ProfileCard
+                                key={`character-${character.id}`}
+                                id={character.id}
+                                name={character.name}
+                                image={character.image}
+                                status={character.status}
+                                location={character.location.name}
+                                gender={character.gender}
+                            />
+                        ))}
 
-
-                            {characters.map((character) => (
-                                <CharacterCard
-                                    key={character.id}
-                                    id={character.id}
-                                    name={character.name}
-                                    image={character.image}
-                                    status={character.status}
-                                    location={character.location.name}
-                                    gender={character.gender}
-                                />
-                            ))}
-
-                        </div>
                     </div>
-                </section>
-
+                </div>
 
                 : <div>No se han encontrado datos</div>
             }

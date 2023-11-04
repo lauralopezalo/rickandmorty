@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import CharactersListInDetails from "../components/CharactersListInDetails";
 import Spinner from "../components/Spinner";
-import getDetails from "../services/getDetails";
+import getData from "../services/getData";
 
 const EpisodeDetails = () => {
 
@@ -10,11 +10,12 @@ const EpisodeDetails = () => {
     const { state } = useLocation();
 
     useEffect(() => {
-        getDetails(state.url)
+        getData({category: "episodes", id: state.id})
             .then((response) => { setEpisode(response.data) })
             .catch((error) => { console.log(error) });
-
-    }, [state]);
+            console.log(state.id)
+            console.log(episode)
+    }, [state.id]);
 
     if (!episode) {
         return (<Spinner />);

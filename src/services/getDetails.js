@@ -8,18 +8,19 @@ import axios from 'axios';
  * you want to retrieve data.
  * @returns The response object is being returned.
  */
-const getDetails = async (url) => {
+// const getDetails = async (url) => {
 
-  try {
-    const response = await axios.get(url);
-    console.log(response.data.results)
-    return response;
+//   try {
+//     const response = await axios.get(url);
+//     console.log(response.data.results)
+//     console.log("url=>" + url)
+//     return response;
 
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error al obtener detalles');
-  }
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error('Error al obtener detalles');
+//   }
 
-}
+// }
 
-export default getDetails;
+// export default getDetails;

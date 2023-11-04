@@ -49,7 +49,9 @@ const getData = async ({ category, page, id, name, status, species, gender, dime
                 break;
 
             case 'episodes':
-                url += `episode?page=${page}`;
+                url += `episode`;
+                if (page) { url += `?page=${page}` }
+                if (id) { url += `/${id}` }
                 if (name) { url += `&name=${name}` }
                 if (season) { url += `&episode=${season}` }
                 break;

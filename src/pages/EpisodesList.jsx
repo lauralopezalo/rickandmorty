@@ -3,12 +3,12 @@
 // It fetches data using the getData function.
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import getData from "../services/getData";
 import useFilterStorage from "../hooks/useFilterStorage";
+import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
 
 
 
@@ -119,24 +119,20 @@ const EpisodesList = () => {
             </div>
 
             {!hasError ?
-                <div className="bg-blue-400 mx-auto max-w-screen-xl">
-                    {episodes.map((episode, id) => (
-                        <div key={id}>
-                            <Link
-                                to={`/episode/${episode.id}`}
-                                state={{ url: episode.url }}>
-                                <div className="border">
-                                    <div className="p-8" >
-                                        <h2 >{episode.name}</h2>
-                                        <p >episode: {episode.episode}</p>
-                                        <p >air_date: {episode.air_date}</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
+                <div className="container mx-auto">
+                    <div className="flex flex-wrap justify-center gap-4 ">
+                        {episodes.map((episode) => (
+                            <OnlyTextCard
+                                key={`episode-${episode.id}`}
+                                id={episode.id}
+                                endpoint={"episode"}
+                                name={episode.name}
+                                air_date={{ "air date": episode.air_date }}
+                                episode={{ "episode": episode.episode }}
+                            />
+                        ))}
+                    </div>
                 </div>
-
                 : <div>No se han encontrado datos</div>
             }
         </div >

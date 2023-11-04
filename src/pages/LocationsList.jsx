@@ -4,13 +4,13 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import getFilters from "../services/GetFilters";
 import getData from "../services/getData";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import useFilterStorage from "../hooks/useFilterStorage";
+import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
 
 
 
@@ -161,25 +161,20 @@ const LocationsList = () => {
             </div>
 
             {!hasError ?
-                <div className="bg-pink-400 mx-auto max-w-screen-xl">
-                    {/* Render Filtered Locations */}
-                    {locations.map((location, id) => (
-                        <div key={id}>
-                            <Link
-                                to={`/location/${location.id}`}
-                                state={{ id: location.id }}>
-                                <div className="border">
-                                    <div className="p-8" >
-                                        <h2>{location.name}</h2>
-                                        <p>Type: {location.type}</p>
-                                        <p>Dimension: {location.dimension}</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
+               <div className="container mx-auto">
+               <div className="flex flex-wrap justify-center gap-4 ">
+                    {locations.map((location) => (
+                        <OnlyTextCard
+                        key={`location-${location.id}`}
+                        endpoint={"location"}
+                        id={location.id}
+                        name={location.name}
+                        type={{"type": location.type}}
+                        dimension={{"dimension": location.dimension}}
+                    />
                     ))}
                 </div>
-
+                </div>
                 : <div>No se han encontrado datos</div>
             }
         </div >

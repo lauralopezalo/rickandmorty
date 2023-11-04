@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 
 import Home from '../pages/Home';
 import CharactersList from '../pages/CharactersList';
-import CharacterDetails from '../pages/CharacterDetails/CharacterDetails';
+import CharacterDetails from '../pages/CharacterDetails';
 import LocationsList from '../pages/LocationsList';
 import LocationDetails from '../pages/LocationDetails';
 import EpisodesList from '../pages/EpisodesList';
