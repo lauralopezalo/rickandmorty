@@ -60,9 +60,7 @@ const getData = async ({ category, page, id, name, status, species, gender, dime
                 throw new Error('Invalid category, must be: characters/locations/episodes');
         }
 
-        console.log("page=>" + page)
         const response = await axios.get(url);
-        console.log("response=>" + response)
         return response;
 
     } catch (error) {

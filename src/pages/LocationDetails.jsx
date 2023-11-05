@@ -5,6 +5,7 @@ import getData from "../services/getData";
 
 import CharactersListInDetails from "../components/CharactersListInDetails";
 import Spinner from "../components/Spinner";
+import DetailsCard from "../components/DetailsCard/DetailsCard";
 
 
 
@@ -15,11 +16,9 @@ const LocationDetails = () => {
 
 
     useEffect(() => {
-        getData({category: "locations", id: state.id})
+        getData({ category: "locations", id: state.id })
             .then((response) => { setLocation(response.data) })
             .catch((error) => { console.log(error) });
-            console.log(state.id)
-            console.log(location)
     }, [state.id]);
 
 
@@ -28,18 +27,15 @@ const LocationDetails = () => {
     }
 
     return (
-        <div className="bg-pink-200 py-10">
-            <div className="mx-auto max-w-screen-xl">
-                <div className="border">
-                    <div className="">
-                        <h2>{location.name}</h2>
-                        <p>Type: </p>
-                        <p>{location.type}</p>
-                        <p>dimension:</p>
-                        <p>{location.dimension}</p>
-                    </div>
-                </div>
-            </div>
+        <div className="container mx-auto my-20 min-h-screen">
+
+            <DetailsCard
+                name={location.name}
+                description={{
+                    type: location.type,
+                    dimension: location.dimension,
+                }}
+            />
             {location.residents !== 0 && <CharactersListInDetails urlsOfCharacters={location.residents} />}
         </div>
     );

@@ -83,8 +83,11 @@ const CharactersList = () => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    setHasError(true);
                 });
         }
+
+        console.log("has error=> " + hasError)
 
     }, [currentPage, searchTerm, selectedStatus, selectedSpecies, selectedType, selectedGender]);
 
@@ -136,7 +139,8 @@ const CharactersList = () => {
 
 
     return (
-        <div className="container mx-auto bg-green-200">
+        <div className="container mx-auto my-20 min-h-screen">
+            <h1 className="text-xl lg:text-6xl text-center font-black mt-16 mb-12">Characters</h1>
             <FiltersContainer >
 
                 {/* Search Input */}
@@ -199,12 +203,12 @@ const CharactersList = () => {
                         ))}
                     </select>
                 </SelectContainer>
-                <button onClick={handleClearFilters} className="btn">Reset Filters</button>
+                <button onClick={handleClearFilters}>Reset Filters</button>
             </FiltersContainer>
 
             {!hasError ?
-                <div className="container mx-auto">
-                    <div className="flex flex-wrap justify-center gap-4 ">
+                <div className="container">
+                    <div className="flex flex-wrap justify-center md:justify-between gap-4 ">
 
                         {characters.map((character) => (
                             <ProfileCard
@@ -221,7 +225,11 @@ const CharactersList = () => {
                     </div>
                 </div>
 
-                : <div>No se han encontrado datos</div>
+                : <div>
+                    <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
+                        No data has been found
+                    </p>
+                </div>
             }
         </div >
     );

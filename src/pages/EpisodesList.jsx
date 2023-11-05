@@ -71,6 +71,7 @@ const EpisodesList = () => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    setHasError(true);
                 });
         }
 
@@ -103,11 +104,13 @@ const EpisodesList = () => {
 
 
     return (
-        <div className="bg-blue-200 py-10">
+        <div className="container mx-auto my-20 min-h-screen">
+            <h1 className="text-xl lg:text-6xl text-center font-black mt-16 mb-12">Episodes</h1>
+
             <FiltersContainer>
                 <input
                     type="text"
-                    placeholder="Buscar por nombre"
+                    placeholder="Serach by name..."
                     value={searchTerm}
                     onChange={(e) => { setSearchTerm(e.target.value); setHasNewSearchOrFilter(true) }}
                 />
@@ -118,12 +121,12 @@ const EpisodesList = () => {
                         onChange={(e) => { setSelectedSeason(e.target.value); setHasNewSearchOrFilter(true) }}
                     >
                         {/* TODO Select number of seasons automatically */}
-                        <option value="">Todas las temporadas</option>
-                        <option value={"s01"}>Temporada 1</option>
-                        <option value={"s02"}>Temporada 2</option>
-                        <option value={"s03"}>Temporada 3</option>
-                        <option value={"s04"}>Temporada 4</option>
-                        <option value={"s05"}>Temporada 5</option>
+                        <option value="">All seasons</option>
+                        <option value={"s01"}>Season 1</option>
+                        <option value={"s02"}>Season 2</option>
+                        <option value={"s03"}>Season 3</option>
+                        <option value={"s04"}>Season 4</option>
+                        <option value={"s05"}>Season 5</option>
                     </select>
                 </SelectContainer>
                 <button onClick={handleClearFilters} className="btn">Reset Filters</button>
@@ -131,7 +134,7 @@ const EpisodesList = () => {
 
             {!hasError ?
                 <div className="container mx-auto">
-                    <div className="flex flex-wrap justify-center gap-4 ">
+                    <div className="flex flex-wrap justify-center md:justify-between gap-4 ">
                         {episodes.map((episode) => (
                             <OnlyTextCard
                                 key={`episode-${episode.id}`}
@@ -144,7 +147,11 @@ const EpisodesList = () => {
                         ))}
                     </div>
                 </div>
-                : <div>No se han encontrado datos</div>
+                : <div>
+                <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
+                    No data has been found
+                </p>
+            </div>
             }
         </div >
 

@@ -14,8 +14,6 @@ const EpisodeDetails = () => {
         getData({category: "episodes", id: state.id})
             .then((response) => { setEpisode(response.data) })
             .catch((error) => { console.log(error) });
-            console.log(state.id)
-            console.log(episode)
     }, [state.id]);
 
     if (!episode) {
@@ -23,7 +21,7 @@ const EpisodeDetails = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto my-20 min-h-screen">
              <DetailsCard
                 name={episode.name}
                 description={{

@@ -20,10 +20,10 @@ const CharactersListInDetails = (props) => {
 
 
     return (
-        <div className="mx-auto max-w-screen-xl">
-            <h2 className="font-bold text-xl">Characters</h2>
-            <hr className="border-black" />
-            <div className="flex flex-wrap justify-center gap-4 ">
+        <div className="mx-auto max-w-screen-xl">       
+            <h1 className="text-lg lg:text-3xl font-bold mt-16 mb-2">Characters</h1>
+            <hr className="border border-black border-t-1 mb-12" />
+            <div className="flex flex-wrap gap-4 ">
                 {characters.map((character, id) => (
                      <ProfileCard
                      key={`character-${character.id}`}

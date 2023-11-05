@@ -34,7 +34,7 @@ const CharacterDetails = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto my-20 min-h-screen">
             <DetailsCard
                 name={character.name}
                 description={{
@@ -48,9 +48,9 @@ const CharacterDetails = () => {
                 image={character.image}
             />
             {character.episode !== 0 && <div className="mx-auto max-w-screen-xl">
-                <h2>Episodes</h2>
-                <hr className="border-black" />
-                <div className="">
+            <h1 className="text-lg lg:text-3xl font-bold mt-16 mb-2">Episodes</h1>
+            <hr className="border border-black border-t-1 mb-12" />
+                <div className="flex flex-col flex-wrap gap-6">
                     {episodes.map((episode) => (
                         <OnlyTextCard
                             key={`episode-${episode.id}`}

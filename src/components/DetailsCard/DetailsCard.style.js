@@ -8,12 +8,12 @@ export const CardContainer = styled.div`
     display: flex;
     border-radius: 20px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: var(--mywhite);
 `;
 
 export const ImageContainer = styled.div`
-    width: 45%;
+    width: 50%;
     object-fit: cover;
-    background-color: green;
 `;
 
 export const Image = styled.img`

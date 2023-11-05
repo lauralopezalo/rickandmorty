@@ -79,6 +79,7 @@ const LocationsList = () => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    setHasError(true);
                 });
         }
 
@@ -128,13 +129,15 @@ const LocationsList = () => {
 
 
     return (
-        <div className="container mx-auto bg-green-200">
+        <div className="container mx-auto my-20 min-h-screen">
+            <h1 className="text-xl lg:text-6xl text-center font-black mt-16 mb-12">Locations</h1>
+
             <FiltersContainer>
 
                 {/* Search Input */}
                 <input
                     type="text"
-                    placeholder="Buscar por nombre"
+                    placeholder="Search by name..."
                     value={searchTerm}
                     onChange={(e) => { setSearchTerm(e.target.value); setHasNewSearchOrFilter(true) }}
                     className="border p-2 w-full"
@@ -145,7 +148,7 @@ const LocationsList = () => {
                         value={selectedDimension}
                         onChange={(e) => { setSelectedDimension(e.target.value); setHasNewSearchOrFilter(true) }}
                     >
-                        <option value="">Todas las dimensiones</option>
+                        <option value="">All dimensions</option>
                         {dimensionArray.map((dimension, index) => (
                             <option key={index} value={dimension}>
                                 {dimension}
@@ -158,7 +161,7 @@ const LocationsList = () => {
                         value={selectedType}
                         onChange={(e) => { setSelectedType(e.target.value); setHasNewSearchOrFilter(true) }}
                     >
-                        <option value="">Todas los tipos</option>
+                        <option value="">All types</option>
                         {typeArray.map((type, index) => (
                             <option key={index} value={type}>
                                 {type}
@@ -171,7 +174,7 @@ const LocationsList = () => {
 
             {!hasError ?
                 <div className="container mx-auto">
-                    <div className="flex flex-wrap justify-center gap-4 ">
+                    <div className="flex flex-wrap justify-center md:justify-between gap-4 ">
                         {locations.map((location) => (
                             <OnlyTextCard
                                 key={`location-${location.id}`}
@@ -184,7 +187,11 @@ const LocationsList = () => {
                         ))}
                     </div>
                 </div>
-                : <div>No se han encontrado datos</div>
+                : <div>
+                    <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
+                        No data has been found
+                    </p>
+                </div>
             }
         </div >
     );

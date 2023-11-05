@@ -12,10 +12,12 @@ const DetailsCard = ({ name, description, image }) => {
 
     const renderCharacteristics = (characteristics) => {
         return Object.entries(characteristics).map(([key, value]) => (
-            <div key={key}>
-                <Label>{key}</Label>
-                <Characteristic>{value}</Characteristic>
-            </div>
+            value && (
+                <div key={key}>
+                    <Label>{key}</Label>
+                    <Characteristic>{value}</Characteristic>
+                </div>
+            )
         ));
     };
 

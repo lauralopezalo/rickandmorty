@@ -20,7 +20,6 @@ const getListsInDetails = async (urlsOfCharacters) => {
     });
 
     const characters = await Promise.all(promises);
-    console.log(characters)
     return characters;
 }
 

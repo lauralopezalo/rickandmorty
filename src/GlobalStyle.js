@@ -7,10 +7,11 @@ export const GlobalStyle = createGlobalStyle`
   --myblack: #0D0D0D;
   --mywhite: #f9faf7;
   --lime: #A7CB54;
-  --green1: #5CAD4A;
-  --green2: #208D45;
+  --mygreen: #5CAD4A;
+  --myyellow: #F0EC54;
+  
   --main-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  --hoover-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  --hoover-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
   --btn-shadow: 0px 10px 20px -18px;
 }
 
@@ -19,6 +20,8 @@ export const GlobalStyle = createGlobalStyle`
   padding: 0;
   box-sizing: border-box;
   font-family: 'Roboto Condensed', sans-serif;
+  background-color: var(--myyellow);
+  background-image: linear-gradient(to bottom right, #A7CB54, rgba(167, 203, 84, 0.4));
   }
 
   input, select {
@@ -36,25 +39,26 @@ export const GlobalStyle = createGlobalStyle`
 
 
 input:focus, select:focus {
-  border-bottom: 2px solid #5b5fc7;
-  border-radius: 4px 4px 2px 2px;
+  border-bottom: 2px solid var(--lime);
 }
 
 input:hover, select:hover {
-  outline: 1px solid lightgrey;
+  outline: 1px solid var(--lime);
 }
 
 
 button {
   height: 50px;
-  width: 200px;
-  background-color: var(--lime);
+  width: 150px;
+  background-color: var(--myblack);
   color: var(--mywhite);
+  font-weight: 700;
   padding: .15rem .5rem;
+  margin: 1rem auto;
   height: 40px;
-  border-radius: .5rem;
+  border: 1px solid var(--lime);
+  border-radius: 2rem;
   outline: none;
-  border: none;
   line-height: 1.15;
   box-shadow: var(--btn-shadow);
 }
@@ -72,13 +76,18 @@ export const Label = styled.p`
   width: 100%;
   font-size: 0.9rem;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.1rem;
+  color: var(--lime);
+  margin-top: 1rem;
 `;
 
 export const FiltersContainer = styled.div`
   display: grid;
   gap: 0.5rem;
   grid-template-rows: auto auto;
+  justify-content: center;
+  margin: 2rem 0;
 `;
 
 export const SelectContainer = styled.div`

@@ -5,10 +5,11 @@ export const CardContainer = styled.div`
     overflow: hidden;
     border-radius: 20px;
     transition: all 0.2s;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--main-shadow);
+    background-color: var(--mywhite);
 
     &:hover {
-        box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
+        box-shadow: var(--hoover-shadow);
         transform: translate(-5px, -5px);
     }
 `;
