@@ -9,6 +9,7 @@ import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import getData from "../services/getData";
 import useFilterStorage from "../hooks/useFilterStorage";
 import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
+import { FiltersContainer, SelectContainer } from "../GlobalStyle";
 
 
 
@@ -81,6 +82,16 @@ const EpisodesList = () => {
     useFilterStorage('searchTerm', searchTerm)
     useFilterStorage('selectedSeason', selectedSeason)
 
+    const handleClearFilters = () => {
+        localStorage.clear();
+        setHasNewSearchOrFilter(true);
+        refreshPage();
+    };
+
+    const refreshPage = () => {
+        window.location.reload();
+    };
+
 
 
     useInfiniteScroll(() => {
@@ -93,30 +104,30 @@ const EpisodesList = () => {
 
     return (
         <div className="bg-blue-200 py-10">
-            <div className="mb-4">
+            <FiltersContainer>
                 <input
                     type="text"
                     placeholder="Buscar por nombre"
                     value={searchTerm}
                     onChange={(e) => { setSearchTerm(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2 w-full"
                 />
-
-                {/* Season Dropdown */}
-                <select
-                    value={selectedSeason}
-                    onChange={(e) => { setSelectedSeason(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    {/* TODO Select number of seasons automatically */}
-                    <option value="">Todas las temporadas</option>
-                    <option value={"s01"}>Temporada 1</option>
-                    <option value={"s02"}>Temporada 2</option>
-                    <option value={"s03"}>Temporada 3</option>
-                    <option value={"s04"}>Temporada 4</option>
-                    <option value={"s05"}>Temporada 5</option>
-                </select>
-            </div>
+                <SelectContainer>
+                    {/* Season Dropdown */}
+                    <select
+                        value={selectedSeason}
+                        onChange={(e) => { setSelectedSeason(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        {/* TODO Select number of seasons automatically */}
+                        <option value="">Todas las temporadas</option>
+                        <option value={"s01"}>Temporada 1</option>
+                        <option value={"s02"}>Temporada 2</option>
+                        <option value={"s03"}>Temporada 3</option>
+                        <option value={"s04"}>Temporada 4</option>
+                        <option value={"s05"}>Temporada 5</option>
+                    </select>
+                </SelectContainer>
+                <button onClick={handleClearFilters} className="btn">Reset Filters</button>
+            </FiltersContainer>
 
             {!hasError ?
                 <div className="container mx-auto">

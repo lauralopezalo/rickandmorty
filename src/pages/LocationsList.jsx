@@ -12,6 +12,7 @@ import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import useFilterStorage from "../hooks/useFilterStorage";
 import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
 
+import { FiltersContainer, SelectContainer } from "../GlobalStyle";
 
 
 const LocationsList = () => {
@@ -106,7 +107,15 @@ const LocationsList = () => {
     useFilterStorage('selectedDimension', selectedDimension)
     useFilterStorage('selectedType', selectedType)
 
+    const handleClearFilters = () => {
+        localStorage.clear();
+        setHasNewSearchOrFilter(true);
+        refreshPage();
+    };
 
+    const refreshPage = () => {
+        window.location.reload();
+    };
 
 
     useInfiniteScroll(() => {
@@ -119,8 +128,8 @@ const LocationsList = () => {
 
 
     return (
-        <div className="bg-pink-200 py-10">
-            <div className="mb-4">
+        <div className="container mx-auto bg-green-200">
+            <FiltersContainer>
 
                 {/* Search Input */}
                 <input
@@ -130,50 +139,50 @@ const LocationsList = () => {
                     onChange={(e) => { setSearchTerm(e.target.value); setHasNewSearchOrFilter(true) }}
                     className="border p-2 w-full"
                 />
+                <SelectContainer>
+                    {/* Dimension Dropdown */}
+                    <select
+                        value={selectedDimension}
+                        onChange={(e) => { setSelectedDimension(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        <option value="">Todas las dimensiones</option>
+                        {dimensionArray.map((dimension, index) => (
+                            <option key={index} value={dimension}>
+                                {dimension}
+                            </option>
+                        ))}
+                    </select>
 
-                {/* Dimension Dropdown */}
-                <select
-                    value={selectedDimension}
-                    onChange={(e) => { setSelectedDimension(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    <option value="">Todas las dimensiones</option>
-                    {dimensionArray.map((dimension, index) => (
-                        <option key={index} value={dimension}>
-                            {dimension}
-                        </option>
-                    ))}
-                </select>
-
-                {/* Type Dropdown */}
-                <select
-                    value={selectedType}
-                    onChange={(e) => { setSelectedType(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    <option value="">Todas los tipos</option>
-                    {typeArray.map((type, index) => (
-                        <option key={index} value={type}>
-                            {type}
-                        </option>
-                    ))}
-                </select>
-            </div>
+                    {/* Type Dropdown */}
+                    <select
+                        value={selectedType}
+                        onChange={(e) => { setSelectedType(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        <option value="">Todas los tipos</option>
+                        {typeArray.map((type, index) => (
+                            <option key={index} value={type}>
+                                {type}
+                            </option>
+                        ))}
+                    </select>
+                </SelectContainer>
+                <button onClick={handleClearFilters} className="btn">Reset Filters</button>
+            </FiltersContainer>
 
             {!hasError ?
-               <div className="container mx-auto">
-               <div className="flex flex-wrap justify-center gap-4 ">
-                    {locations.map((location) => (
-                        <OnlyTextCard
-                        key={`location-${location.id}`}
-                        endpoint={"location"}
-                        id={location.id}
-                        name={location.name}
-                        type={{"type": location.type}}
-                        dimension={{"dimension": location.dimension}}
-                    />
-                    ))}
-                </div>
+                <div className="container mx-auto">
+                    <div className="flex flex-wrap justify-center gap-4 ">
+                        {locations.map((location) => (
+                            <OnlyTextCard
+                                key={`location-${location.id}`}
+                                endpoint={"location"}
+                                id={location.id}
+                                name={location.name}
+                                type={{ "type": location.type }}
+                                dimension={{ "dimension": location.dimension }}
+                            />
+                        ))}
+                    </div>
                 </div>
                 : <div>No se han encontrado datos</div>
             }

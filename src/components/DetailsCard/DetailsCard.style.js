@@ -1,46 +1,43 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-    width: ${(props) => (props.$bigSize ? "260px" : "200px")};
+    max-width: 900px;
+    margin: 4rem auto;
     position: relative;
     overflow: hidden;
-    background-color: var(--mywhite);
+    display: flex;
     border-radius: 20px;
-    transition: all 0.2s;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-
-    &:hover {
-        box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
-        transform: translate(-5px, -5px);
-    }
 `;
 
+export const ImageContainer = styled.div`
+    width: 45%;
+    object-fit: cover;
+    background-color: green;
+`;
 
 export const Image = styled.img`
-    height: 220px;
+    height: auto;
     width: 100%;
     object-fit: cover;
 `;
 
 export const Description = styled.div`
-    padding: 1.6rem;
+    padding: 3rem;
 `;
 
 export const TitleContainer = styled.div`
-    display: flex;
-	flex-direction: column;
-	justify-content: center;
+    margin-bottom: 2rem;
 `;
 
 
 export const Title = styled.h1`
-    font-size: ${(props) => (props.$bigSize ? "1.4rem" : "1.2rem")};
-    line-height: ${(props) => (props.$bigSize ? "1.6rem" : "1.3rem")};
+    font-size: 3rem;
+    line-height: 2.2rem;
     text-transform: capitalize;
 `;
 
 export const CharacteristicConatiner = styled.div`
-    width: 75%;
 `;
 
 export const Characteristic = styled.p`

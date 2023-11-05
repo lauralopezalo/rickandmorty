@@ -5,7 +5,8 @@ import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import getFilters from "../services/GetFilters";
 import getData from "../services/getData";
 import useFilterStorage from "../hooks/useFilterStorage";
-import ProfileCard from "../components/ProfileCard/ProfileCard"
+import ProfileCard from "../components/ProfileCard/ProfileCard";
+import { FiltersContainer, SelectContainer } from "../GlobalStyle";
 
 
 
@@ -114,6 +115,15 @@ const CharactersList = () => {
     useFilterStorage('selectedGender', selectedGender)
     useFilterStorage('searchTerm', searchTerm)
 
+    const handleClearFilters = () => {
+        localStorage.clear();
+        setHasNewSearchOrFilter(true);
+        refreshPage();
+    };
+
+    const refreshPage = () => {
+        window.location.reload();
+    };
 
 
     useInfiniteScroll(() => {
@@ -124,76 +134,73 @@ const CharactersList = () => {
 
 
 
+
     return (
-        <div className="bg-green-200 py-10">
-            <div className="mb-4">
+        <div className="container mx-auto bg-green-200">
+            <FiltersContainer >
 
                 {/* Search Input */}
                 <input
                     type="text"
-                    placeholder="Buscar por nombre"
+                    placeholder="Search by name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border p-2 w-full"
                 />
+                <SelectContainer>
+                    {/* Status Dropdown */}
+                    <select
+                        value={selectedStatus}
+                        onChange={(e) => { setSelectedStatus(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        <option value="">All status</option>
+                        {statusArray.map((status, index) => (
+                            <option key={index} value={status}>
+                                {status}
+                            </option>
+                        ))}
+                    </select>
 
-                {/* Status Dropdown */}
-                <select
-                    value={selectedStatus}
-                    onChange={(e) => { setSelectedStatus(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    <option value="">Todos los estados</option>
-                    {statusArray.map((status, index) => (
-                        <option key={index} value={status}>
-                            {status}
-                        </option>
-                    ))}
-                </select>
+                    {/* Species Dropdown */}
+                    <select
+                        value={selectedSpecies}
+                        onChange={(e) => { setSelectedSpecies(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        <option value="">All species</option>
+                        {speciesArray.map((species, index) => (
+                            <option key={index} value={species}>
+                                {species}
+                            </option>
+                        ))}
+                    </select>
 
-                {/* Species Dropdown */}
-                <select
-                    value={selectedSpecies}
-                    onChange={(e) => { setSelectedSpecies(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    <option value="">Todas las especies</option>
-                    {speciesArray.map((species, index) => (
-                        <option key={index} value={species}>
-                            {species}
-                        </option>
-                    ))}
-                </select>
+                    {/* Type Dropdown */}
+                    <select
+                        value={selectedType}
+                        onChange={(e) => { setSelectedType(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        <option value="">All types</option>
+                        {typeArray.map((type, index) => (
+                            <option key={index} value={type}>
+                                {type}
+                            </option>
+                        ))}
+                    </select>
 
-                {/* Type Dropdown */}
-                <select
-                    value={selectedType}
-                    onChange={(e) => { setSelectedType(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    <option value="">Todos los tipos</option>
-                    {typeArray.map((type, index) => (
-                        <option key={index} value={type}>
-                            {type}
-                        </option>
-                    ))}
-                </select>
-
-                {/* Gender Dropdown */}
-                <select
-                    value={selectedGender}
-                    onChange={(e) => { setSelectedGender(e.target.value); setHasNewSearchOrFilter(true) }}
-                    className="border p-2"
-                >
-                    <option value="">Todos los generos</option>
-                    {genderArray.map((gender, index) => (
-                        <option key={index} value={gender}>
-                            {gender}
-                        </option>
-                    ))}
-                </select>
-
-            </div>
+                    {/* Gender Dropdown */}
+                    <select
+                        value={selectedGender}
+                        onChange={(e) => { setSelectedGender(e.target.value); setHasNewSearchOrFilter(true) }}
+                    >
+                        <option value="">All genres</option>
+                        {genderArray.map((gender, index) => (
+                            <option key={index} value={gender}>
+                                {gender}
+                            </option>
+                        ))}
+                    </select>
+                </SelectContainer>
+                <button onClick={handleClearFilters} className="btn">Reset Filters</button>
+            </FiltersContainer>
 
             {!hasError ?
                 <div className="container mx-auto">

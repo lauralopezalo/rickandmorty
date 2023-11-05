@@ -20,7 +20,6 @@ const Router = () => (
 
             <Route path="/" element={
                 <div>
-                    <NavBar />
                     <Home />
                 </div>
             } />

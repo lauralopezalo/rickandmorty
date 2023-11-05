@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AliveIcon, DeadIcon, FemaleIcon, GenderUnknownIcon, GenderlessIcon, MaleIcon, StatusUnknownIcon } from "../../../public/icons";
 
@@ -9,23 +9,27 @@ import { Label } from "../../GlobalStyle";
 
 
 const ProfileCard = ({ id, name, status, location, image, gender }) => {
+
+    const hasCharacteristics = (status || location || gender);
+
     return (
-        <CardContainer className="bg-mywhite">
+        <CardContainer $bigSize={hasCharacteristics}>
             <Link to={`/character/${id}`} state={{ id }}>
                 <Image src={image} alt={name} />
                 <Description>
                     <TitleContainer>
                         <Title>{name}</Title>
                     </TitleContainer>
-                    <CharacteristicConatiner>
-                        <Label className="text-stone-400">Last known location</Label>
-                        <Characteristic>{location}</Characteristic>
-                    </CharacteristicConatiner>
+                    {hasCharacteristics && (
+                        <CharacteristicConatiner>
+                            <Label className="text-stone-400">Last known location</Label>
+                            <Characteristic>{location}</Characteristic>
+                        </CharacteristicConatiner>)}
                 </Description>
-                <IconsContainer>
+                {hasCharacteristics && (<IconsContainer>
                     {gender === "Female" ? (<FemaleIcon />) : gender === "Male" ? (<MaleIcon />) : gender === "Genderless" ? (<GenderlessIcon />) : (<GenderUnknownIcon />)}
                     {status === "Alive" ? (<AliveIcon />) : status === "Dead" ? (<DeadIcon />) : (<StatusUnknownIcon />)}
-                </IconsContainer>
+                </IconsContainer>)}
             </Link>
         </CardContainer>
     )

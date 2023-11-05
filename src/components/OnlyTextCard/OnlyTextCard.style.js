@@ -16,15 +16,14 @@ export const CardContainer = styled.div`
 
 export const Description = styled.div`
     padding: 1.5rem;
-    display: grid;
-    grid-template-rows: 60px 40px 20px;
+    display: flex;
+    flex-direction: column;
 `;
 
 export const TitleContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: .5rem;
 `;
 
 export const Title = styled.h1`
@@ -38,11 +37,11 @@ export const CharacteristicContainer = styled.div`
     display: grid;
     grid-template-columns: 45% 55%;
     gap: 1rem;
+    margin-top: .5rem
 `;
 
 
 export const Characteristic = styled.p`
-    margin-bottom: 20px;
     width: 100%;
     text-transform: capitalize;
     font-size: 1.2rem;

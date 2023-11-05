@@ -17,6 +17,8 @@ const OnlyTextCard = ({ id, endpoint, name, type, dimension, air_date, episode }
         ));
     };
 
+    const hasCharacteristics = (type || dimension || episode || air_date);
+
 
     return (
         <CardContainer>
@@ -25,12 +27,14 @@ const OnlyTextCard = ({ id, endpoint, name, type, dimension, air_date, episode }
                     <TitleContainer>
                         <Title>{name}</Title>
                     </TitleContainer>
-                    <CharacteristicContainer>
-                        {type && renderCharacteristics(type)}
-                        {dimension && renderCharacteristics(dimension)}
-                        {episode && renderCharacteristics(episode)}
-                        {air_date && renderCharacteristics(air_date)}
-                    </CharacteristicContainer>
+                    {hasCharacteristics && (
+                        <CharacteristicContainer>
+                            {type && renderCharacteristics(type)}
+                            {dimension && renderCharacteristics(dimension)}
+                            {episode && renderCharacteristics(episode)}
+                            {air_date && renderCharacteristics(air_date)}
+                        </CharacteristicContainer>
+                    )} 
                 </Description>
             </Link>
         </CardContainer>
