@@ -29,9 +29,10 @@ Once the development server is running, open a web browser and go to `http://loc
 ## Features
 
 - Search by name
-- Filter by status, species, type, and gender
+- Filter characters by status, species, type, and gender
+- Filter locations by dimension and type
+- Filter episodes by season
 - View detailed information about characters and locations
-- ...
 
 ## Contributing
 
@@ -50,9 +51,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgements
 
 - [Rick and Morty API](https://rickandmortyapi.com/)
-- ...
 
 ## Contact
 
-For questions or inquiries, please contact Laura López Alonso at laura@example.com.
-
+If you have questions or queries, do not hesitate to contact me at laura.lopez.alo@gmail.com. Happy coding!
