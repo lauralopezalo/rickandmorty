@@ -34,7 +34,7 @@ const CharacterDetails = () => {
     }
 
     return (
-        <div className="container mx-auto my-20 min-h-screen">
+        <div className="container p-4 mx-auto md:my-20 min-h-screen">
             <DetailsCard
                 name={character.name}
                 description={{

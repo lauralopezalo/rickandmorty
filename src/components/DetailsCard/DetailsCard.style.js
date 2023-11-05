@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+
+
 export const CardContainer = styled.div`
     max-width: 900px;
     margin: 4rem auto;
@@ -9,11 +11,19 @@ export const CardContainer = styled.div`
     border-radius: 20px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     background-color: var(--mywhite);
+
+    @media (max-width: 768px) {
+        display: block; 
+    }
 `;
 
 export const ImageContainer = styled.div`
     width: 50%;
     object-fit: cover;
+
+    @media (max-width: 768px) {
+        width: 100%; 
+    }
 `;
 
 export const Image = styled.img`

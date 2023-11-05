@@ -129,8 +129,8 @@ const LocationsList = () => {
 
 
     return (
-        <div className="container mx-auto my-20 min-h-screen">
-            <h1 className="text-xl lg:text-6xl text-center font-black mt-16 mb-12">Locations</h1>
+        <div className="container p-4 mx-auto lg:my-20 min-h-screen">
+            <h1 className="text-3xl lg:text-6xl text-center font-black mt-8 mb-4 lg:mt-16 lg:mb-12">Locations</h1>
 
             <FiltersContainer>
 
