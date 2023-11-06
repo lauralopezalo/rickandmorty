@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-    width: 600px;
+    width: 600px; 
     overflow: hidden;
     border-radius: 20px;
     transition: all 0.2s;
@@ -11,6 +11,9 @@ export const CardContainer = styled.div`
     &:hover {
         box-shadow: var(--hoover-shadow);
         transform: translate(-5px, -5px);
+    }
+    @media (max-width: 411px) {
+        width: 100%;
     }
 `;
 

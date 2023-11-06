@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
-import getFilters from "../services/GetFilters";
-import getData from "../services/getData";
-import useFilterStorage from "../hooks/useFilterStorage";
-import ProfileCard from "../components/ProfileCard/ProfileCard";
 import { FiltersContainer, SelectContainer } from "../GlobalStyle";
+import ProfileCard from "../components/ProfileCard/ProfileCard";
+import useFilterStorage from "../hooks/useFilterStorage";
+import getFilters from "../services/getFilters";
+import getData from "../services/getData";
 
 
 
@@ -207,22 +207,19 @@ const CharactersList = () => {
             </FiltersContainer>
 
             {!hasError ?
-                <div className="container">
-                    <div className="flex flex-wrap justify-center md:justify-between gap-4 ">
+                <div className="mx-auto flex flex-wrap justify-center gap-4" >
 
-                        {characters.map((character) => (
-                            <ProfileCard
-                                key={`character-${character.id}`}
-                                id={character.id}
-                                name={character.name}
-                                image={character.image}
-                                status={character.status}
-                                location={character.location.name}
-                                gender={character.gender}
-                            />
-                        ))}
-
-                    </div>
+                    {characters.map((character) => (
+                        <ProfileCard
+                            key={`character-${character.id}`}
+                            id={character.id}
+                            name={character.name}
+                            image={character.image}
+                            status={character.status}
+                            location={character.location.name}
+                            gender={character.gender}
+                        />
+                    ))}
                 </div>
 
                 : <div>

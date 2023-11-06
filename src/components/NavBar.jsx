@@ -63,12 +63,8 @@ const NavBar = () => {
                             <Link to="/episodes-list">Episodes</Link>
                         </p>
                     </div>
-                    {/* Fin Lista de enlaces */}
                 </div>
             </div >
-
-
-
 
         </>
     );

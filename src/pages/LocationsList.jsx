@@ -5,12 +5,12 @@
 
 import React, { useEffect, useState } from "react";
 
-import getFilters from "../services/GetFilters";
+import getFilters from "../services/getFilters";
 import getData from "../services/getData";
 
-import useInfiniteScroll from "../hooks/useInfiniteScroll";
-import useFilterStorage from "../hooks/useFilterStorage";
 import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
+import useFilterStorage from "../hooks/useFilterStorage";
+import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import { FiltersContainer, SelectContainer } from "../GlobalStyle";
 
@@ -173,20 +173,19 @@ const LocationsList = () => {
             </FiltersContainer>
 
             {!hasError ?
-                <div className="container mx-auto">
-                    <div className="flex flex-wrap justify-center md:justify-between gap-4 ">
-                        {locations.map((location) => (
-                            <OnlyTextCard
-                                key={`location-${location.id}`}
-                                endpoint={"location"}
-                                id={location.id}
-                                name={location.name}
-                                type={{ "type": location.type }}
-                                dimension={{ "dimension": location.dimension }}
-                            />
-                        ))}
-                    </div>
+                <div className="mx-auto flex flex-wrap justify-center gap-4 ">
+                    {locations.map((location) => (
+                        <OnlyTextCard
+                            key={`location-${location.id}`}
+                            endpoint={"location"}
+                            id={location.id}
+                            name={location.name}
+                            type={{ "type": location.type }}
+                            dimension={{ "dimension": location.dimension }}
+                        />
+                    ))}
                 </div>
+
                 : <div>
                     <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
                         No data has been found

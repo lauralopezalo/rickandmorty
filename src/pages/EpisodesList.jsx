@@ -6,10 +6,10 @@ import React, { useEffect, useState } from "react";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
-import getData from "../services/getData";
-import useFilterStorage from "../hooks/useFilterStorage";
-import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
 import { FiltersContainer, SelectContainer } from "../GlobalStyle";
+import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
+import useFilterStorage from "../hooks/useFilterStorage";
+import getData from "../services/getData";
 
 
 
@@ -133,25 +133,24 @@ const EpisodesList = () => {
             </FiltersContainer>
 
             {!hasError ?
-                <div className="container mx-auto">
-                    <div className="flex flex-wrap justify-center md:justify-between gap-4 ">
-                        {episodes.map((episode) => (
-                            <OnlyTextCard
-                                key={`episode-${episode.id}`}
-                                id={episode.id}
-                                endpoint={"episode"}
-                                name={episode.name}
-                                air_date={{ "air date": episode.air_date }}
-                                episode={{ "episode": episode.episode }}
-                            />
-                        ))}
-                    </div>
+                <div className="mx-auto flex flex-wrap justify-center gap-4 ">
+                    {episodes.map((episode) => (
+                        <OnlyTextCard
+                            key={`episode-${episode.id}`}
+                            id={episode.id}
+                            endpoint={"episode"}
+                            name={episode.name}
+                            air_date={{ "air date": episode.air_date }}
+                            episode={{ "episode": episode.episode }}
+                        />
+                    ))}
                 </div>
+
                 : <div>
-                <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
-                    No data has been found
-                </p>
-            </div>
+                    <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
+                        No data has been found
+                    </p>
+                </div>
             }
         </div >
 

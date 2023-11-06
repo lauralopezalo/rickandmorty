@@ -7,28 +7,20 @@ export const CardContainer = styled.div`
     margin: 4rem auto;
     position: relative;
     overflow: hidden;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     border-radius: 20px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     background-color: var(--mywhite);
 
     @media (max-width: 768px) {
-        display: block; 
-    }
-`;
-
-export const ImageContainer = styled.div`
-    width: 50%;
-    object-fit: cover;
-
-    @media (max-width: 768px) {
-        width: 100%; 
+        display: block;
     }
 `;
 
 export const Image = styled.img`
-    height: auto;
     width: 100%;
+    height: 100%;
     object-fit: cover;
 `;
 
@@ -43,11 +35,13 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.h1`
     font-size: 3rem;
-    line-height: 2.2rem;
+    line-height: 2.6rem;
     text-transform: capitalize;
 `;
 
 export const CharacteristicConatiner = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 `;
 
 export const Characteristic = styled.p`

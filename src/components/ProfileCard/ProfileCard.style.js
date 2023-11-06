@@ -6,12 +6,16 @@ export const CardContainer = styled.div`
     overflow: hidden;
     background-color: var(--mywhite);
     border-radius: 20px;
-    transition: all 0.2s;
+    transition: all 0.2s; 
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 
     &:hover {
         box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
         transform: translate(-5px, -5px);
+    }
+
+    @media (max-width: 450px) {
+        width: 100%;
     }
 `;
 

@@ -50,7 +50,7 @@ const CharacterDetails = () => {
             {character.episode !== 0 && <div className="mx-auto max-w-screen-xl">
             <h1 className="text-lg lg:text-3xl font-bold mt-16 mb-2">Episodes</h1>
             <hr className="border border-black border-t-1 mb-12" />
-                <div className="flex flex-col flex-wrap gap-6">
+                <div className="flex flex-row flex-wrap justify-center gap-6">
                     {episodes.map((episode) => (
                         <OnlyTextCard
                             key={`episode-${episode.id}`}

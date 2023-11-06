@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
   font-family: 'Roboto Condensed', sans-serif;
   background-color: var(--myyellow);
   background-image: linear-gradient(to bottom right, #A7CB54, rgba(167, 203, 84, 0.4));
-  }
+}
 
   input, select {
   min-width: 250px;
@@ -93,6 +93,12 @@ export const FiltersContainer = styled.div`
 export const SelectContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0.5rem;
+  max-width: 600px;
+
+  select{
+    width: 49%;
+  }
 `;

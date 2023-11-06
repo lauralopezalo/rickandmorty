@@ -1,7 +1,18 @@
-import React from 'react';
+import React from "react";
 
 export const FemaleIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-gender-female" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-gender-female"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M12 9m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
     <path d="M12 14v7" />
@@ -10,7 +21,18 @@ export const FemaleIcon = () => (
 );
 
 export const MaleIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-gender-male" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-gender-male"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M10 14m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
     <path d="M19 5l-5.4 5.4" />
@@ -19,35 +41,75 @@ export const MaleIcon = () => (
   </svg>
 );
 
-
 export const GenderlessIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-gender-agender" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-gender-agender"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M12 12m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" />
     <path d="M7 12h11" />
   </svg>
 );
 
-
 export const GenderUnknownIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-question-mark" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-question-mark"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" />
     <path d="M12 19l0 .01" />
   </svg>
 );
 
-
-
 export const AliveIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-heart" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-heart"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
   </svg>
 );
 
 export const DeadIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-skull" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-skull"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M12 4c4.418 0 8 3.358 8 7.5c0 1.901 -.755 3.637 -2 4.96l0 2.54a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-2.54c-1.245 -1.322 -2 -3.058 -2 -4.96c0 -4.142 3.582 -7.5 8 -7.5z" />
     <path d="M10 17v3" />
@@ -58,7 +120,18 @@ export const DeadIcon = () => (
 );
 
 export const StatusUnknownIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-heart-question" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#A7CB54" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-heart-question"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#A7CB54"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M14.105 17.915l-2.105 2.085l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 0 1 8.524 5.127" />
     <path d="M19 22v.01" />
@@ -66,13 +139,48 @@ export const StatusUnknownIcon = () => (
   </svg>
 );
 
-
 export const HamburgerIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-menu-2" width="28" height="28" viewBox="0 0 24 24" strokeWidth="1.6" stroke="#f9faf7" fill="none" strokeLinecap="round" strokeLinejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 6l16 0" />
-  <path d="M4 12l16 0" />
-  <path d="M4 18l16 0" />
-</svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-menu-2"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    strokeWidth="1.6"
+    stroke="#f9faf7"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M4 6l16 0" />
+    <path d="M4 12l16 0" />
+    <path d="M4 18l16 0" />
+  </svg>
 );
 
+export const FilterIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon icon-tabler icon-tabler-adjustments-horizontal"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="#2c3e50"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M4 6l8 0" />
+    <path d="M16 6l4 0" />
+    <path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M4 12l2 0" />
+    <path d="M10 12l10 0" />
+    <path d="M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    <path d="M4 18l11 0" />
+    <path d="M19 18l1 0" />
+  </svg>
+);

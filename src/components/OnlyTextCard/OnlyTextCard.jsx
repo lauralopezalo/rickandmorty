@@ -21,7 +21,7 @@ const OnlyTextCard = ({ id, endpoint, name, type, dimension, air_date, episode }
 
 
     return (
-        <CardContainer>
+        <CardContainer >
             <Link to={`/${endpoint}/${id}`} state={{ id }}>
                 <Description>
                     <TitleContainer>
