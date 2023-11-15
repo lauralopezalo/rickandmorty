@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { AliveIcon, DeadIcon, FemaleIcon, GenderUnknownIcon, GenderlessIcon, MaleIcon, StatusUnknownIcon } from "../../../public/icons";
 
-import { CardContainer, Image, Description, TitleContainer, Title, CharacteristicConatiner, Characteristic, IconsContainer } from "./ProfileCard.style";
+import { CardContainer, Image, Description, Title, CharacteristicConatiner, Characteristic, IconsContainer } from "./ProfileCard.style";
 import { Label } from "../../GlobalStyle";
-
 
 
 
@@ -16,12 +15,12 @@ const ProfileCard = ({ id, name, status, location, image, gender }) => {
             <Link to={`/character/${id}`} state={{ id }}>
                 <Image src={image} alt={name} />
                 <Description>
-                    <TitleContainer>
+                    <div>
                         <Title>{name}</Title>
-                    </TitleContainer>
+                    </div>
                     {hasCharacteristics && (
                         <CharacteristicConatiner>
-                            <Label className="text-stone-400">Last known location</Label>
+                            <Label>Last known location</Label>
                             <Characteristic>{location}</Characteristic>
                         </CharacteristicConatiner>)}
                 </Description>

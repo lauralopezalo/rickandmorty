@@ -6,155 +6,150 @@ import React, { useEffect, useState } from "react";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
-import { FiltersContainer, SelectContainer } from "../GlobalStyle";
-import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
+import { FilterIcon, SearchIcon, TriangleIcon } from "../../public/icons";
+import { Button, Heading } from "../GlobalStyle";
+import TextCard from "../components/TextCard/TextCard";
 import useFilterStorage from "../hooks/useFilterStorage";
 import getData from "../services/getData";
-
-
+import { Dropdown, FiltersContainer, Input, InputContainer, Li } from "./StyledFilterMenu";
+import { useMediaQuery } from "react-responsive";
 
 const EpisodesList = () => {
-    const [episodes, setEpisodes] = useState([]);
+	const [episodes, setEpisodes] = useState([]);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pagesToRead, setPagesToRead] = useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [pagesToRead, setPagesToRead] = useState(1);
 
-    const [hasNewSearchOrFilter, setHasNewSearchOrFilter] = useState(false);
-    const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
-    const [selectedSeason, setSelectedSeason] = useState(localStorage.getItem('selectedSeason') || '');
+	const [searchTerm, setSearchTerm] = useState(localStorage.getItem("searchTerm") || "");
+	const [selectedSeason, setSelectedSeason] = useState(localStorage.getItem("selectedSeason") || "");
 
-    const [hasError, setHasError] = useState(false);
+    const [dataReceived, setDataReceived] = useState(false);
 
-
-
-    // Effect to fetch episodes data
-    useEffect(() => {
-
-        if (hasNewSearchOrFilter) {
-            setCurrentPage(1);
-            setHasNewSearchOrFilter(false);
-            setHasError(false);
-
-            getData({
-                category: 'episodes',
-                page: 1,
-                name: searchTerm,
-                season: selectedSeason,
-            })
-                .then((response) => {
-                    if (response.data.error) {
-                        setHasError(true);
-                    } else if (response.data.results.length > 0) {
-                        setEpisodes(response.data.results);
-                        setPagesToRead(response.data.info.pages);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setHasError(true);
-                });
-        } else {
-            getData({
-                category: 'episodes',
-                page: currentPage,
-                name: searchTerm,
-                episode: selectedSeason,
-            })
-                .then((response) => {
-                    setEpisodes((prevEpisodes) => {
-                        if (currentPage > 1)
-                            return [...prevEpisodes, ...response.data.results]
-                        else
-                            return response.data.results;
-                    });
-                    setPagesToRead(response.data.info.pages)
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setHasError(true);
-                });
-        }
-
-    }, [currentPage, searchTerm, selectedSeason]);
+	const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
 
 
-    // Save selected filters to local storage
-    useFilterStorage('searchTerm', searchTerm)
-    useFilterStorage('selectedSeason', selectedSeason)
+	// Effect to fetch episodes data
+	useEffect(() => {
+		getData({
+			category: "episodes",
+			page: currentPage,
+			name: searchTerm,
+			season: selectedSeason,
+		})
+			.then((response) => {
+				setEpisodes((prevEpisodes) => {
+					if (currentPage > 1) return [...prevEpisodes, ...response.data.results];
+					else return response.data.results;
+				});
+				setPagesToRead(response.data.info.pages);
+                setDataReceived(true);
+			})
+			.catch((error) => {
+				console.log(error);
+				if (error.response && error.response.status === 404) {
+					setEpisodes([]);
+					setPagesToRead(0);
+					setDataReceived(false);
+				} else {
+					setDataReceived(false);
+				}
+			});
+	}, [currentPage, searchTerm, selectedSeason]);
 
-    const handleClearFilters = () => {
-        localStorage.clear();
-        setHasNewSearchOrFilter(true);
-        refreshPage();
-    };
+	// Save selected filters to local storage
+	useFilterStorage("searchTerm", searchTerm);
+	useFilterStorage("selectedSeason", selectedSeason);
 
-    const refreshPage = () => {
-        window.location.reload();
-    };
+	const handleSeasonChange = (newSeason) => {
+		setSelectedSeason(newSeason);
+		setIsOpenSeasonDropdown(!isOpenSeasonDropdown)
+	};
+
+	const handleClearFilters = () => {
+		localStorage.clear();
+		window.location.reload();
+	};
+
+	useInfiniteScroll(() => {
+		if (currentPage < pagesToRead) {
+			setCurrentPage((prevPage) => prevPage + 1);
+		}
+	});
 
 
+	const isMobile = useMediaQuery({ maxWidth: 640 });
+	const buttonText = isMobile ? <FilterIcon /> : "Reset Filters";
 
-    useInfiniteScroll(() => {
-        if (currentPage < pagesToRead) {
-            setCurrentPage(prevPage => prevPage + 1);
-        }
-    });
+	const handleButtonClick = () => {
+		if (isMobile) {
+			setIsFilterMenuOpen(!isFilterMenuOpen);
+		} else {
+			handleClearFilters();
+		}
+	};
 
+	const [isOpenSeasonDropdown, setIsOpenSeasonDropdown] = useState(false);
 
+	return (
+		<div className='container p-4 mx-auto lg:my-20 min-h-screen'>
+			<Heading>Episodes</Heading>
 
-    return (
-        <div className="container p-4 mx-auto lg:my-20 min-h-screen">
-            <h1 className="text-3xl lg:text-6xl text-center font-black mt-8 mb-4 lg:mt-16 lg:mb-12">Episodes</h1>
+			<FiltersContainer className='flex sm:grid sm:grid-cols-8 gap-3'>
+				<InputContainer className='col-span-6 flex-grow'>
+					<Input
+						type='text'
+						placeholder='Serach by name...'
+						value={searchTerm}
+						onChange={(e) => {
+							setSearchTerm(e.target.value);
+						}}
+					/>
+					<SearchIcon />
+				</InputContainer>
 
-            <FiltersContainer>
-                <input
-                    type="text"
-                    placeholder="Serach by name..."
-                    value={searchTerm}
-                    onChange={(e) => { setSearchTerm(e.target.value); setHasNewSearchOrFilter(true) }}
-                />
-                <SelectContainer>
-                    {/* Season Dropdown */}
-                    <select
-                        value={selectedSeason}
-                        onChange={(e) => { setSelectedSeason(e.target.value); setHasNewSearchOrFilter(true) }}
-                    >
-                        {/* TODO Select number of seasons automatically */}
-                        <option value="">All seasons</option>
-                        <option value={"s01"}>Season 1</option>
-                        <option value={"s02"}>Season 2</option>
-                        <option value={"s03"}>Season 3</option>
-                        <option value={"s04"}>Season 4</option>
-                        <option value={"s05"}>Season 5</option>
-                    </select>
-                </SelectContainer>
-                <button onClick={handleClearFilters} className="btn">Reset Filters</button>
-            </FiltersContainer>
+				<Button onClick={handleButtonClick} className='col-span-2'>
+					{buttonText}
+				</Button>
 
-            {!hasError ?
-                <div className="mx-auto flex flex-wrap justify-center gap-4 ">
-                    {episodes.map((episode) => (
-                        <OnlyTextCard
-                            key={`episode-${episode.id}`}
-                            id={episode.id}
-                            endpoint={"episode"}
-                            name={episode.name}
-                            air_date={{ "air date": episode.air_date }}
-                            episode={{ "episode": episode.episode }}
-                        />
-                    ))}
-                </div>
+				{/* Season Dropdown */}
+				<Dropdown $isOpen={isOpenSeasonDropdown} className='col-span-8'>
+					<ul onClick={() => setIsOpenSeasonDropdown(!isOpenSeasonDropdown)}>
+						<span>{selectedSeason ? "Season " + selectedSeason : "All seasons"}</span>
+						<TriangleIcon />
+					</ul>
+					<div>
+						<Li onClick={() => handleSeasonChange("")}>All seasons</Li>
+						<Li onClick={() => handleSeasonChange("01")}>Season 1</Li>
+						<Li onClick={() => handleSeasonChange("02")}>Season 2</Li>
+						<Li onClick={() => handleSeasonChange("03")}>Season 3</Li>
+						<Li onClick={() => handleSeasonChange("04")}>Season 4</Li>
+						<Li onClick={() => handleSeasonChange("05")}>Season 5</Li>
+					</div>
+				</Dropdown>
+			</FiltersContainer>
 
-                : <div>
-                    <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
-                        No data has been found
-                    </p>
-                </div>
-            }
-        </div >
-
-    );
-}
+			{dataReceived ? (
+				<div className='mx-auto flex flex-wrap justify-center gap-5 '>
+					{episodes.map((episode) => (
+						<TextCard
+							key={`episode-${episode.id}`}
+							id={episode.id}
+							endpoint={"episode"}
+							name={episode.name}
+							air_date={{ "air date": episode.air_date }}
+							episode={{ episode: episode.episode }}
+						/>
+					))}
+				</div>
+			) : (
+				<div>
+					<p className='text-2xl font-bold tracking-tight text-mylight sm:text-4xl'>No data has been found</p>
+                    <img src='../../public/NoDataReceived.jpg' />
+				</div>
+			)}
+		</div>
+	);
+};
 
 export default EpisodesList;

@@ -69,7 +69,6 @@ export const Heading = styled.h1`
 `;
 
 export const Button = styled.button`
-	min-width: 150px;
 	height: 40px;
 	padding: 0.15rem 0.5rem;
 

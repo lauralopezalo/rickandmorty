@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import getData from "../services/getData";
 import getListsInDetails from "../services/getListsInDetails";
-import OnlyTextCard from "../components/OnlyTextCard/OnlyTextCard";
+import TextCard from "../components/TextCard/TextCard";
 import DetailsCard from "../components/DetailsCard/DetailsCard";
 
 const CharacterDetails = () => {
@@ -34,7 +34,7 @@ const CharacterDetails = () => {
     }
 
     return (
-        <div className="container p-4 mx-auto md:my-20 min-h-screen">
+        <div className="container p-4 mx-auto min-h-screen">
             <DetailsCard
                 name={character.name}
                 description={{
@@ -52,7 +52,7 @@ const CharacterDetails = () => {
             <hr className="border border-black border-t-1 mb-12" />
                 <div className="flex flex-row flex-wrap justify-center gap-6">
                     {episodes.map((episode) => (
-                        <OnlyTextCard
+                        <TextCard
                             key={`episode-${episode.id}`}
                             id={episode.id}
                             endpoint={"episode"}

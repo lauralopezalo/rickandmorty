@@ -53,7 +53,7 @@ const getData = async ({ category, page, id, name, status, species, gender, dime
                 if (page) { url += `?page=${page}` }
                 if (id) { url += `/${id}` }
                 if (name) { url += `&name=${name}` }
-                if (season) { url += `&episode=${season}` }
+                if (season) { url += `&episode=S${season}` }
                 break;
 
             default:

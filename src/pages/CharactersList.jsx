@@ -2,234 +2,369 @@ import React, { useEffect, useState } from "react";
 
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
-import { FiltersContainer, SelectContainer } from "../GlobalStyle";
+import { FilterIcon, SearchIcon, TriangleIcon, XIcon } from "../../public/icons";
+import { Button, Heading } from "../GlobalStyle";
+import { Dropdown, FiltersContainer, Input, InputContainer, Li, MobileDropdown } from "./StyledFilterMenu";
+
+import { useMediaQuery } from "react-responsive";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 import useFilterStorage from "../hooks/useFilterStorage";
 import getFilters from "../services/getFilters";
-import getData from "../services/getData";
-
-
+import useCharactersData from "../hooks/useCharactersData";
 
 const CharactersList = () => {
+	const [statusArray, setStatusArray] = useState([]);
+	const [speciesArray, setSpeciesArray] = useState([]);
+	const [typeArray, setTypeArray] = useState([]);
+	const [genderArray, setGenderArray] = useState([]);
 
-    const [characters, setCharacters] = useState([]);
+	const [searchTerm, setSearchTerm] = useState(localStorage.getItem("searchTerm") || "");
+	const [selectedStatus, setSelectedStatus] = useState(localStorage.getItem("selectedStatus") || "");
+	const [selectedSpecies, setSelectedSpecies] = useState(localStorage.getItem("selectedSpecies") || "");
+	const [selectedType, setSelectedType] = useState(localStorage.getItem("selectedType") || "");
+	const [selectedGender, setSelectedGender] = useState(localStorage.getItem("selectedGender") || "");
 
-    const [statusArray, setStatusArray] = useState([])
-    const [speciesArray, setSpeciesArray] = useState([])
-    const [typeArray, setTypeArray] = useState([])
-    const [genderArray, setGenderArray] = useState([])
+	const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pagesToRead, setPagesToRead] = useState(1);
+	const { characters, currentPage, pagesToRead, dataReceived, setCurrentPage } = useCharactersData(
+		searchTerm,
+		selectedStatus,
+		selectedSpecies,
+		selectedType,
+		selectedGender
+	);
 
-    const [hasNewSearchOrFilter, setHasNewSearchOrFilter] = useState(false);
-    const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
-    const [selectedStatus, setSelectedStatus] = useState(localStorage.getItem('selectedStatus') || '');
-    const [selectedSpecies, setSelectedSpecies] = useState(localStorage.getItem('selectedSpecies') || '');
-    const [selectedType, setSelectedType] = useState(localStorage.getItem('selectedType') || '');
-    const [selectedGender, setSelectedGender] = useState(localStorage.getItem('selectedGender') || '');
+	// Get options for dropdown filters
+	useEffect(() => {
+		getFilters("character", ["status", "species", "type", "gender"])
+			.then((response) => {
+				setStatusArray(response.status || []);
+				setSpeciesArray(response.species || []);
+				setTypeArray(response.type || []);
+				setGenderArray(response.gender || []);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
-    const [hasError, setHasError] = useState(false);
+	// Save selected filters to local storage
+	useFilterStorage("selectedStatus", selectedStatus);
+	useFilterStorage("selectedSpecies", selectedSpecies);
+	useFilterStorage("selectedType", selectedType);
+	useFilterStorage("selectedGender", selectedGender);
+	useFilterStorage("searchTerm", searchTerm);
 
+	const handleClearFilters = () => {
+		localStorage.clear();
+		window.location.reload();
+	};
 
+	useInfiniteScroll(() => {
+		if (currentPage < pagesToRead) {
+			setCurrentPage((prevPage) => prevPage + 1);
+		}
+	});
 
-    // Effect to fetch locations data
-    useEffect(() => {
+	const toggleMenu = () => {
+		setIsFilterMenuOpen(!isFilterMenuOpen);
+	};
 
-        if (hasNewSearchOrFilter) {
-            setCurrentPage(1);
-            setHasNewSearchOrFilter(false);
-            setHasError(false);
+	const isMobile = useMediaQuery({ maxWidth: 640 });
+	const buttonText = isMobile ? <FilterIcon /> : "Reset Filters";
 
-            getData({
-                category: 'characters',
-                page: 1,
-                name: searchTerm,
-                status: selectedStatus,
-                species: selectedSpecies,
-                type: selectedType,
-                gender: selectedGender
-            })
-                .then((response) => {
-                    if (response.data.error) {
-                        setHasError(true);
-                    } else if (response.data.results.length > 0) {
-                        setCharacters(response.data.results);
-                        setPagesToRead(response.data.info.pages);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setHasError(true);
-                });
-        } else {
-            getData({
-                category: 'characters',
-                page: currentPage,
-                name: searchTerm,
-                status: selectedStatus,
-                species: selectedSpecies,
-                type: selectedType,
-                gender: selectedGender
-            })
-                .then((response) => {
-                    setCharacters((prevCharacters) => {
-                        if (currentPage > 1)
-                            return [...prevCharacters, ...response.data.results]
-                        else
-                            return response.data.results;
-                    });
-                    setPagesToRead(response.data.info.pages)
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setHasError(true);
-                });
-        }
+	const handleButtonClick = () => {
+		if (isMobile) {
+			setIsFilterMenuOpen(!isFilterMenuOpen);
+		} else {
+			handleClearFilters();
+		}
+	};
 
-        console.log("has error=> " + hasError)
-
-    }, [currentPage, searchTerm, selectedStatus, selectedSpecies, selectedType, selectedGender]);
+	const [isOpenStatusDropdown, setIsOpenStatusDropdown] = useState(false);
+	const [isOpenSpeciesDropdown, setIsOpenSpeciesDropdown] = useState(false);
+	const [isOpenTypeDropdown, setIsOpenTypeDropdown] = useState(false);
+	const [isOpenGenderDropdown, setIsOpenGenderDropdown] = useState(false);
 
 
+	if (!characters) {
+        return (<Spinner />);
+    }
 
-    // Get options for dropdown filters
-    useEffect(() => {
+	return (
+		<div className='container p-4 mx-auto lg:my-20 min-h-screen'>
+			<Heading>Characters</Heading>
 
-        getFilters("character", ["status", "species", "type", "gender"])
-            .then((response) => {
-                setStatusArray(response.status || []);
-                setSpeciesArray(response.species || []);
-                setTypeArray(response.type || []);
-                setGenderArray(response.gender || []);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+			<FiltersContainer className='flex sm:grid grid-cols-8 gap-3'>
+				{/* Search Input */}
+				<InputContainer className='col-span-6 flex-grow'>
+					<Input
+						type='text'
+						placeholder='Search by name...'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+					<SearchIcon />
+				</InputContainer>
 
-    }, []);
+				<Button onClick={handleButtonClick} className='col-span-2'>
+					{buttonText}
+				</Button>
 
+				{/* Desktop Filters Dropdowns*/}
+				{/* Status Dropdown */}
+				<Dropdown $isOpen={isOpenStatusDropdown} className='col-span-4'>
+					<ul onClick={() => setIsOpenStatusDropdown(!isOpenStatusDropdown)}>
+						<span>{selectedStatus ? selectedStatus : "All status"}</span>
+						<TriangleIcon />
+					</ul>
+					<div>
+						<Li
+							onClick={() => {
+								setSelectedStatus("");
+								setIsOpenStatusDropdown(!isOpenStatusDropdown);
+							}}>
+							All status
+						</Li>
+						{statusArray.map((status, index) => (
+							<Li
+								key={index}
+								onClick={() => {
+									setSelectedStatus(status);
+									setIsOpenStatusDropdown(!isOpenStatusDropdown);
+								}}>
+								{status}
+							</Li>
+						))}
+					</div>
+				</Dropdown>
 
+				{/* Species Dropdown */}
+				<Dropdown $isOpen={isOpenSpeciesDropdown} className='col-span-4'>
+					<ul onClick={() => setIsOpenSpeciesDropdown(!isOpenSpeciesDropdown)}>
+						<span>{selectedSpecies ? selectedSpecies : "All species"}</span>
+						<TriangleIcon />
+					</ul>
+					<div>
+						<Li
+							onClick={() => {
+								setSelectedSpecies("");
+								setIsOpenSpeciesDropdown(!isOpenSpeciesDropdown);
+							}}>
+							All species
+						</Li>
+						{speciesArray.map((specie, index) => (
+							<Li
+								key={index}
+								onClick={() => {
+									setSelectedSpecies(specie);
+									setIsOpenSpeciesDropdown(!isOpenSpeciesDropdown);
+								}}>
+								{specie}
+							</Li>
+						))}
+					</div>
+				</Dropdown>
 
-    // Save selected filters to local storage
-    useFilterStorage('selectedStatus', selectedStatus)
-    useFilterStorage('selectedSpecies', selectedSpecies)
-    useFilterStorage('selectedType', selectedType)
-    useFilterStorage('selectedGender', selectedGender)
-    useFilterStorage('searchTerm', searchTerm)
+				{/* Type Dropdown */}
+				<Dropdown $isOpen={isOpenTypeDropdown} className='col-span-4'>
+					<ul onClick={() => setIsOpenTypeDropdown(!isOpenTypeDropdown)}>
+						<span>{selectedType ? selectedType : "All types"}</span>
+						<TriangleIcon />
+					</ul>
+					<div>
+						<Li
+							onClick={() => {
+								setSelectedType("");
+								setIsOpenTypeDropdown(!isOpenTypeDropdown);
+							}}>
+							All types
+						</Li>
+						{typeArray.map((type, index) => (
+							<Li
+								key={index}
+								onClick={() => {
+									setSelectedType(type);
+									setIsOpenTypeDropdown(!isOpenTypeDropdown);
+								}}>
+								{type}
+							</Li>
+						))}
+					</div>
+				</Dropdown>
 
-    const handleClearFilters = () => {
-        localStorage.clear();
-        setHasNewSearchOrFilter(true);
-        refreshPage();
-    };
+				{/* Gender Dropdown */}
+				<Dropdown $isOpen={isOpenGenderDropdown} className='col-span-4'>
+					<ul onClick={() => setIsOpenGenderDropdown(!isOpenGenderDropdown)}>
+						<span>{selectedGender ? selectedGender : "All genres"}</span>
+						<TriangleIcon />
+					</ul>
+					<div>
+						<Li
+							onClick={() => {
+								setSelectedGender("");
+								setIsOpenGenderDropdown(!isOpenGenderDropdown);
+							}}>
+							All genres
+						</Li>
+						{genderArray.map((gender, index) => (
+							<Li
+								key={index}
+								onClick={() => {
+									setSelectedGender(gender);
+									setIsOpenGenderDropdown(!isOpenGenderDropdown);
+								}}>
+								{gender}
+							</Li>
+						))}
+					</div>
+				</Dropdown>
+			</FiltersContainer>
 
-    const refreshPage = () => {
-        window.location.reload();
-    };
+			{/* Mobile Filters Dropdowns*/}
+			<div className='bg-mydark sm:hidden'>
+				<div
+					className={`py-20 text-right h-screen w-screen bg-mydark z-50 ${
+						isFilterMenuOpen ? "fixed top-0 left-0" : "hidden"
+					} `}>
+					<div onClick={toggleMenu} className='fixed top-5 right-3'>
+						<XIcon />
+					</div>
 
+					{/* Status Dropdown */}
+					<MobileDropdown $isOpen={isOpenStatusDropdown}>
+						<ul onClick={() => setIsOpenStatusDropdown(!isOpenStatusDropdown)}>
+							<span>{selectedStatus ? selectedStatus : "All status"}</span>
+							<TriangleIcon />
+						</ul>
+						<div>
+							<Li
+								onClick={() => {
+									setSelectedStatus("");
+									setIsOpenStatusDropdown(!isOpenStatusDropdown);
+								}}>
+								All status
+							</Li>
+							{statusArray.map((status, index) => (
+								<Li
+									key={index}
+									onClick={() => {
+										setSelectedStatus(status);
+										setIsOpenStatusDropdown(!isOpenStatusDropdown);
+									}}>
+									{status}
+								</Li>
+							))}
+						</div>
+					</MobileDropdown>
 
-    useInfiniteScroll(() => {
-        if (currentPage < pagesToRead) {
-            setCurrentPage(prevPage => prevPage + 1);
-        }
-    });
+					{/* Species Dropdown */}
+					<MobileDropdown $isOpen={isOpenSpeciesDropdown}>
+						<ul onClick={() => setIsOpenSpeciesDropdown(!isOpenSpeciesDropdown)}>
+							<span>{selectedSpecies ? selectedSpecies : "All species"}</span>
+							<TriangleIcon />
+						</ul>
+						<div>
+							<Li
+								onClick={() => {
+									setSelectedSpecies("");
+									setIsOpenSpeciesDropdown(!isOpenSpeciesDropdown);
+								}}>
+								All species
+							</Li>
+							{speciesArray.map((specie, index) => (
+								<Li
+									key={index}
+									onClick={() => {
+										setSelectedSpecies(specie);
+										setIsOpenSpeciesDropdown(!isOpenSpeciesDropdown);
+									}}>
+									{specie}
+								</Li>
+							))}
+						</div>
+					</MobileDropdown>
 
+					{/* Type Dropdown */}
+					<MobileDropdown $isOpen={isOpenTypeDropdown}>
+						<ul onClick={() => setIsOpenTypeDropdown(!isOpenTypeDropdown)}>
+							<span>{selectedType ? selectedType : "All types"}</span>
+							<TriangleIcon />
+						</ul>
+						<div>
+							<Li
+								onClick={() => {
+									setSelectedType("");
+									setIsOpenTypeDropdown(!isOpenTypeDropdown);
+								}}>
+								All types
+							</Li>
+							{typeArray.map((type, index) => (
+								<Li
+									key={index}
+									onClick={() => {
+										setSelectedType(type);
+										setIsOpenTypeDropdown(!isOpenTypeDropdown);
+									}}>
+									{type}
+								</Li>
+							))}
+						</div>
+					</MobileDropdown>
 
+					{/* Gender Dropdown */}
+					<MobileDropdown $isOpen={isOpenGenderDropdown}>
+						<ul onClick={() => setIsOpenGenderDropdown(!isOpenGenderDropdown)}>
+							<span>{selectedGender ? selectedGender : "All genres"}</span>
+							<TriangleIcon />
+						</ul>
+						<div>
+							<Li
+								onClick={() => {
+									setSelectedGender("");
+									setIsOpenGenderDropdown(!isOpenGenderDropdown);
+								}}>
+								All genres
+							</Li>
+							{genderArray.map((gender, index) => (
+								<Li
+									key={index}
+									onClick={() => {
+										setSelectedGender(gender);
+										setIsOpenGenderDropdown(!isOpenGenderDropdown);
+									}}>
+									{gender}
+								</Li>
+							))}
+						</div>
+					</MobileDropdown>
+					<Button onClick={handleClearFilters}>Reset Filters</Button>
+					<Button onClick={toggleMenu}>Go</Button>
+				</div>
+			</div>
 
-
-    return (
-        <div className="container p-4 mx-auto lg:my-20 min-h-screen">
-            <h1 className="text-3xl lg:text-6xl text-center font-black mt-8 mb-4 lg:mt-16 lg:mb-12">Characters</h1>
-            <FiltersContainer >
-
-                {/* Search Input */}
-                <input
-                    type="text"
-                    placeholder="Search by name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <SelectContainer>
-                    {/* Status Dropdown */}
-                    <select
-                        value={selectedStatus}
-                        onChange={(e) => { setSelectedStatus(e.target.value); setHasNewSearchOrFilter(true) }}
-                    >
-                        <option value="">All status</option>
-                        {statusArray.map((status, index) => (
-                            <option key={index} value={status}>
-                                {status}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Species Dropdown */}
-                    <select
-                        value={selectedSpecies}
-                        onChange={(e) => { setSelectedSpecies(e.target.value); setHasNewSearchOrFilter(true) }}
-                    >
-                        <option value="">All species</option>
-                        {speciesArray.map((species, index) => (
-                            <option key={index} value={species}>
-                                {species}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Type Dropdown */}
-                    <select
-                        value={selectedType}
-                        onChange={(e) => { setSelectedType(e.target.value); setHasNewSearchOrFilter(true) }}
-                    >
-                        <option value="">All types</option>
-                        {typeArray.map((type, index) => (
-                            <option key={index} value={type}>
-                                {type}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Gender Dropdown */}
-                    <select
-                        value={selectedGender}
-                        onChange={(e) => { setSelectedGender(e.target.value); setHasNewSearchOrFilter(true) }}
-                    >
-                        <option value="">All genres</option>
-                        {genderArray.map((gender, index) => (
-                            <option key={index} value={gender}>
-                                {gender}
-                            </option>
-                        ))}
-                    </select>
-                </SelectContainer>
-                <button onClick={handleClearFilters}>Reset Filters</button>
-            </FiltersContainer>
-
-            {!hasError ?
-                <div className="mx-auto flex flex-wrap justify-center gap-4" >
-
-                    {characters.map((character) => (
-                        <ProfileCard
-                            key={`character-${character.id}`}
-                            id={character.id}
-                            name={character.name}
-                            image={character.image}
-                            status={character.status}
-                            location={character.location.name}
-                            gender={character.gender}
-                        />
-                    ))}
-                </div>
-
-                : <div>
-                    <p className="text-2xl font-bold tracking-tight text-mywhite sm:text-4xl">
-                        No data has been found
-                    </p>
-                </div>
-            }
-        </div >
-    );
-}
+			{dataReceived ? (
+				<div className='mx-auto flex flex-wrap justify-center gap-5'>
+					{characters.map((character) => (
+						<ProfileCard
+							key={`character-${character.id}`}
+							id={character.id}
+							name={character.name}
+							image={character.image}
+							status={character.status}
+							location={character.location.name}
+							gender={character.gender}
+						/>
+					))}
+				</div>
+			) : (
+				<div>
+					<p className='text-2xl font-bold text-mylight sm:text-4xl'>No data has been found</p>
+					<img src='../../public/NoDataReceived.jpg' />
+				</div>
+			)}
+		</div>
+	);
+};
 
 export default CharactersList;

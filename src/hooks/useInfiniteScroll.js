@@ -1,13 +1,13 @@
-// Custom Hook: useInfiniteScroll
-// This hook sets up an event listener for scrolling to the bottom of a page,
-// and triggers a callback function when the bottom of the page is reached.
-// Parameters:
-//   - callback: The function to be executed when the bottom of the page is reached.
-
-
 import { useEffect } from 'react';
 
 
+/**
+ * The `useInfiniteScroll` function is a custom hook in JavaScript that triggers a callback function
+ * when the user scrolls to the bottom of the page.
+ * @param callback - The callback parameter is a function that will be called when the user reaches the
+ * bottom of the page and triggers the infinite scroll. This function can be used to load more data or
+ * perform any other action required for the infinite scroll functionality.
+ */
 const useInfiniteScroll = (callback) => {
 
     useEffect(() => {

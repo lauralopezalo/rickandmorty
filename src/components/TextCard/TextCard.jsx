@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { CardContainer, Description, TitleContainer, Title, Characteristic, CharacteristicContainer } from "./OnlyTextCard.style";
+import { CardContainer, Description, Title, Characteristic, CharacteristicContainer } from "./TextCard.style";
 import { Label } from "../../GlobalStyle";
 
 
@@ -24,9 +24,9 @@ const OnlyTextCard = ({ id, endpoint, name, type, dimension, air_date, episode }
         <CardContainer >
             <Link to={`/${endpoint}/${id}`} state={{ id }}>
                 <Description>
-                    <TitleContainer>
+                    <div>
                         <Title>{name}</Title>
-                    </TitleContainer>
+                    </div>
                     {hasCharacteristics && (
                         <CharacteristicContainer>
                             {type && renderCharacteristics(type)}
