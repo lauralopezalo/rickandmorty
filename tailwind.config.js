@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'myblack': '#0D0D0D',
-        'mywhite': '#F0F2EB',
+        'mydark': '#0D0D0D',
+        'mylight': '#F0F2EB',
         'lime': '#A7CB54',
         'green': '#5CAD4A',
       },

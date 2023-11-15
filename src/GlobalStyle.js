@@ -4,101 +4,91 @@ export const GlobalStyle = createGlobalStyle`
 
 :root {
 
-  --myblack: #0D0D0D;
-  --mywhite: #f9faf7;
-  --lime: #A7CB54;
-  --mygreen: #5CAD4A;
+  --mydark: #0D0D0D;
+  --mylight: #f9faf7;
+  --lime: #ABFE00;
+  --mygreen: #39A200;
   --myyellow: #F0EC54;
+  --lightgray: #DBD6D0;
   
   --main-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  --hoover-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
+  --hover-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
   --btn-shadow: 0px 10px 20px -18px;
 }
 
-	body {
+
+/* Style Scrollbars for WebKit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 12px; 
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Style Scrollbars for Blink-based browsers (Opera) */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; 
+}
+::-webkit-scrollbar-track:hover {
+  background-color: #e9e9e9; 
+}
+
+
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
   font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  
   background-color: var(--myyellow);
-  background-image: linear-gradient(to bottom right, #A7CB54, rgba(167, 203, 84, 0.4));
+  background-image: linear-gradient(to bottom right, var(--lime), rgba(167, 203, 84, 0.4));
 }
 
-  input, select {
-  min-width: 250px;
-  background-color: var(--mywhite);
-  color: var(--myblack);
-  padding: .15rem .5rem;
-  height: 40px;
-  border-radius: .5rem;
-  outline: none;
-  border: none;
-  line-height: 1.15;
-  box-shadow: var(--btn-shadow);
-}
+`;
 
+export const Heading = styled.h1`
+	margin-top: 0.5rem;
+	margin-bottom: 0.25rem;
 
-input:focus, select:focus {
-  border-bottom: 2px solid var(--lime);
-}
+	font-size: 2rem;
+	font-weight: 900;
+	text-align: center;
 
-input:hover, select:hover {
-  outline: 1px solid var(--lime);
-}
+	@media (min-width: 576px) {
+		margin-top: 1rem;
+		margin-bottom: 0.75rem;
 
+		font-size: 3.5rem;
+	}
+`;
 
-button {
-  height: 50px;
-  width: 150px;
-  background-color: var(--myblack);
-  color: var(--mywhite);
-  font-weight: 700;
-  padding: .15rem .5rem;
-  margin: 1rem auto;
-  height: 40px;
-  border: 1px solid var(--lime);
-  border-radius: 2rem;
-  outline: none;
-  line-height: 1.15;
-  box-shadow: var(--btn-shadow);
-}
+export const Button = styled.button`
+	min-width: 150px;
+	height: 40px;
+	padding: 0.15rem 0.5rem;
 
-button:hover {
-  background-color: var(--mywhite);
-  color: var(--lime);
-  transition: all 0.2s ease-in
-}
+	color: var(--mylight);
+	line-height: 1.15;
 
-
+	background-color: var(--mydark);
+	border-radius: 0.5rem;
+	box-shadow: var(--btn-shadow);
 `;
 
 export const Label = styled.p`
-  width: 100%;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  font-weight: 600;
-  line-height: 1.1rem;
-  color: var(--lime);
-  margin-top: 1rem;
+	width: 100%;
+	margin-top: 1rem;
+
+	color: var(--lime);
+	font-size: 0.9rem;
+	font-weight: 600;
+	line-height: 1.1rem;
+	text-transform: uppercase;
 `;
 
-export const FiltersContainer = styled.div`
-  display: grid;
-  gap: 0.5rem;
-  grid-template-rows: auto auto;
-  justify-content: center;
-  margin: 2rem 0;
-`;
-
-export const SelectContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  max-width: 600px;
-
-  select{
-    width: 49%;
-  }
-`;
