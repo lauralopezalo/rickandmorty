@@ -46,8 +46,8 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 14px;
   
-  background-color: var(--myyellow);
-  background-image: linear-gradient(to bottom right, var(--lime), rgba(167, 203, 84, 0.4));
+  background-color: var(--mydark);
+  /* background-image: linear-gradient(to bottom right, var(--lime), rgba(167, 203, 84, 0.4)); */
 }
 
 `;
@@ -68,16 +68,52 @@ export const Heading = styled.h1`
 	}
 `;
 
-export const Button = styled.button`
-	height: 40px;
-	padding: 0.15rem 0.5rem;
+export const Button1 = styled.button`
+	width: 200px;
+	height: 55px;
+	font-size: 1rem;
 
 	color: var(--mylight);
+    font-size: 1rem;
+    font-weight: 500;
 	line-height: 1.15;
+    text-transform: uppercase;
+	letter-spacing: .08rem;
 
-	background-color: var(--mydark);
+	background-color: transparent;
+	border-width: 0.1rem;
+	border-radius: 1rem;
+	box-shadow: 0 0.2rem #dfd9d9;
+	cursor: pointer;
+
+	&:active {
+		color: white;
+		box-shadow: 0 0.2rem #dfd9d9;
+		transform: translateY(0.2rem);
+	}
+
+	&:hover {
+		background: var(--lime);
+		color: var(--mydark);
+		text-shadow: 0 0.1rem #bcb4b4;
+		font-weight: 700;
+		border-width: 0rem;
+	}
+`;
+
+export const Button2 = styled.button`
+	height: 40px;
+	
+	font-size: 1rem;
+	color: var(--mydark);
+
+	background-color: var(--lime);
 	border-radius: 0.5rem;
 	box-shadow: var(--btn-shadow);
+
+	&:hover {
+		background: var(--mylight);
+	}
 `;
 
 export const Label = styled.p`
@@ -90,4 +126,3 @@ export const Label = styled.p`
 	line-height: 1.1rem;
 	text-transform: uppercase;
 `;
-

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import { FilterIcon, SearchIcon, TriangleIcon, XIcon } from "../../public/icons";
-import { Button, Heading } from "../GlobalStyle";
+import { Button2, Heading } from "../GlobalStyle";
 import { Dropdown, FiltersContainer, Input, InputContainer, Li, MobileDropdown } from "./StyledFilterMenu";
 
 import { useMediaQuery } from "react-responsive";
@@ -92,7 +92,7 @@ const CharactersList = () => {
     }
 
 	return (
-		<div className='container p-4 mx-auto lg:my-20 min-h-screen'>
+		<div className='container p-4 mx-auto lg:my-20 min-h-screen text-mylight'>
 			<Heading>Characters</Heading>
 
 			<FiltersContainer className='flex sm:grid grid-cols-8 gap-3'>
@@ -107,9 +107,9 @@ const CharactersList = () => {
 					<SearchIcon />
 				</InputContainer>
 
-				<Button onClick={handleButtonClick} className='col-span-2'>
+				<Button2 onClick={handleButtonClick} className='col-span-2'>
 					{buttonText}
-				</Button>
+				</Button2>
 
 				{/* Desktop Filters Dropdowns*/}
 				{/* Status Dropdown */}
@@ -338,8 +338,8 @@ const CharactersList = () => {
 							))}
 						</div>
 					</MobileDropdown>
-					<Button onClick={handleClearFilters}>Reset Filters</Button>
-					<Button onClick={toggleMenu}>Go</Button>
+					<Button2 onClick={handleClearFilters}>Reset Filters</Button2>
+					<Button2 onClick={toggleMenu}>Go</Button2>
 				</div>
 			</div>
 

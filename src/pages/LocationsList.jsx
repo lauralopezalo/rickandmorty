@@ -12,7 +12,7 @@ import useFilterStorage from "../hooks/useFilterStorage";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 import { FilterIcon, SearchIcon, TriangleIcon } from "../../public/icons";
-import { Button, Heading } from "../GlobalStyle";
+import { Button2, Heading } from "../GlobalStyle";
 import { Dropdown, FiltersContainer, Input, InputContainer, Li } from "./StyledFilterMenu";
 import { useMediaQuery } from "react-responsive";
 
@@ -110,7 +110,7 @@ const LocationsList = () => {
 	const [isOpenTypeDropdown, setIsOpenTypeDropdown] = useState(false);
 
 	return (
-		<div className='container p-4 mx-auto lg:my-20 min-h-screen'>
+		<div className='container p-4 mx-auto lg:my-20 min-h-screen text-mylight'>
 			<Heading>Locations</Heading>
 
 			<FiltersContainer className='flex sm:grid sm:grid-cols-8 gap-3'>
@@ -127,9 +127,9 @@ const LocationsList = () => {
 					<SearchIcon />
 				</InputContainer>
 
-				<Button onClick={handleButtonClick} className='col-span-2'>
+				<Button2 onClick={handleButtonClick} className='col-span-2'>
 					{buttonText}
-				</Button>
+				</Button2>
 
 				{/* Dimension Dropdown */}
 				<Dropdown $isOpen={isOpenDimensionDropdown} className='col-span-4'>

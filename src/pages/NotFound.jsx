@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button1 } from "../GlobalStyle";
 
 const NotFound = () => {
     return (
@@ -10,7 +11,7 @@ const NotFound = () => {
                     <p className="text-2xl font-bold tracking-tight text-mylight sm:text-4xl">
                         Uh-oh!
                     </p>
-                    <button className="mt-8"><Link to='/'>Go back home</Link></button>
+                    <Button1 className="mt-8"><Link to='/'>Go back home</Link></Button1>
                 </div>
             </div>
 

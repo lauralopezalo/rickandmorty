@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const FiltersContainer = styled.div`
 	max-width: 600px;
 	margin: 2rem auto;
+
+	font-size: 1rem;
+
 `;
 
 export const InputContainer = styled.div`
