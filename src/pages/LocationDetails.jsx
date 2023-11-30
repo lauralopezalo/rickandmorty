@@ -27,7 +27,7 @@ const LocationDetails = () => {
     }
 
     return (
-        <div className="container mx-auto my-20 min-h-screen">
+        <div className="container p-4 mx-auto min-h-screen">
 
             <DetailsCard
                 name={location.name}

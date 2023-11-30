@@ -9,7 +9,7 @@ export default {
       colors: {
         'mydark': '#0D0D0D',
         'mylight': '#F0F2EB',
-        'lime': '#A7CB54',
+        'lime': '#ABFE00',
         'green': '#5CAD4A',
       },
     },

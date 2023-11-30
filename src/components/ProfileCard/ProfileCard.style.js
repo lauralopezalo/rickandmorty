@@ -43,7 +43,7 @@ export const CharacteristicConatiner = styled.div`
 
 export const Characteristic = styled.p`
 	width: 100%;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	line-height: 1.4rem;
 	text-transform: capitalize;
 `;

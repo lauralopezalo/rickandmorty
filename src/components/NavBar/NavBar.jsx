@@ -20,7 +20,7 @@ const NavBar = () => {
 		<>
 			{/* Desktop */}
 			<div className='hidden bg-mydark sm:flex justify-between items-center gap-5 w-screen-xl px-5 py-3'>
-			<h1 className='text-mylight text-2xl font-bold'>Rick&Morty Encyclopedia</h1>
+			<h1 className='text-mylight text-2xl font-bold'><Link to='/'>Rick & Morty Encyclopedia</Link></h1>
 				<div>
 					<nav className='flex'>
 						<NavBarLink onClick={handleClearFilters}>
@@ -42,7 +42,7 @@ const NavBar = () => {
 			{/* Mobile */}
 			<div className='bg-mydark sm:hidden'>
 				<div className='flex justify-between items-center mx-auto w-screen-xl p-3 pt-5'>
-					<h1 className='text-mylight text-2xl font-bold'>Rick&Morty Encyclopedia</h1>
+					<h1 className='text-mylight text-xl font-bold'>Rick & Morty Encyclopedia</h1>
 					<div className='block sm:hidden'>
 						<div onClick={() => setIsMenuOpen(!isMenuOpen)}>
 							<HamburgerIcon />

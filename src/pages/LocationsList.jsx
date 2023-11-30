@@ -110,7 +110,7 @@ const LocationsList = () => {
 	const [isOpenTypeDropdown, setIsOpenTypeDropdown] = useState(false);
 
 	return (
-		<div className='container p-4 mx-auto lg:my-20 min-h-screen text-mylight'>
+		<div className='container p-4 mx-auto lg:my-20 min-h-screen'>
 			<Heading>Locations</Heading>
 
 			<FiltersContainer className='flex sm:grid sm:grid-cols-8 gap-3'>

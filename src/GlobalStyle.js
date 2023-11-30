@@ -43,10 +43,11 @@ body {
   padding: 0;
   box-sizing: border-box;
   
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto Flex', sans-serif;
+  /* font-family: 'Roboto Condensed', sans-serif; */
   font-size: 14px;
   
-  background-color: var(--mydark);
+  background-color: var(--lime);
   /* background-image: linear-gradient(to bottom right, var(--lime), rgba(167, 203, 84, 0.4)); */
 }
 
@@ -57,28 +58,30 @@ export const Heading = styled.h1`
 	margin-bottom: 0.25rem;
 
 	font-size: 2rem;
-	font-weight: 900;
+	font-weight: 700;
 	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 	@media (min-width: 576px) {
 		margin-top: 1rem;
 		margin-bottom: 0.75rem;
 
-		font-size: 3.5rem;
+		font-size: 4rem;
 	}
 `;
 
 export const Button1 = styled.button`
-	width: 200px;
-	height: 55px;
-	font-size: 1rem;
+	width: 160px;
+	height: 45px;
+	margin: 1rem;
 
 	color: var(--mylight);
-    font-size: 1rem;
-    font-weight: 500;
+	font-size: 0.8rem;
+	font-weight: 500;
 	line-height: 1.15;
-    text-transform: uppercase;
-	letter-spacing: .08rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08rem;
 
 	background-color: transparent;
 	border-width: 0.1rem;
@@ -99,19 +102,28 @@ export const Button1 = styled.button`
 		font-weight: 700;
 		border-width: 0rem;
 	}
+
+	@media (min-width: 768px) {
+		width: 200px;
+		height: 55px;
+		font-size: 1rem;
+	}
 `;
 
 export const Button2 = styled.button`
 	height: 40px;
-	
-	font-size: 1rem;
-	color: var(--mydark);
+	padding: 0.4rem;
 
-	background-color: var(--lime);
+	font-size: 1rem;
+	color: white;
+
+	background-color: var(--mydark);
 	border-radius: 0.5rem;
 	box-shadow: var(--btn-shadow);
 
 	&:hover {
+		color: var(--mydark);
+
 		background: var(--mylight);
 	}
 `;
@@ -120,9 +132,11 @@ export const Label = styled.p`
 	width: 100%;
 	margin-top: 1rem;
 
-	color: var(--lime);
-	font-size: 0.9rem;
+	color: gray;
+	font-size: 0.8rem;
 	font-weight: 600;
 	line-height: 1.1rem;
 	text-transform: uppercase;
+
+	white-space: nowrap;
 `;
